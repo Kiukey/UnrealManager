@@ -10,7 +10,7 @@ QString IOToolBox::ReadFile(const QString& _path)
     const size_t _red = fread_s(_buffer, _fileSize, 1, _fileSize, currentFile);
     _buffer[_fileSize] = '\0';
     rewind(currentFile);
-    _toRet = _buffer;
+    _toRet = QString(_buffer);
     CloseFile();
     delete[] _buffer;
     return _toRet;
@@ -45,10 +45,13 @@ std::vector<QString> IOToolBox::GetAllLines(const QString& _fileContent)
 {
     QString _toUse = "";
     std::vector<QString> _lines = std::vector<QString>();
-    for (int _i = 0; _i <= _fileContent.length(); _i++)
+    const int _size = _fileContent.size();
+    if (_fileContent.isEmpty()) return _lines;
+    for (int _i = 0; _i <= _size; _i++)
     {
-        if (_fileContent[_i] == '\n' || _fileContent[_i] == '\0')
+        if (_i == _size ||_fileContent[_i] == '\n' || _fileContent[_i] == '\0')
         {
+            if (_toUse.isEmpty()) continue;
             _lines.insert(_lines.end(), _toUse);
             _toUse = "";
         }

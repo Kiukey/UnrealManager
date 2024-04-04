@@ -23,13 +23,13 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>3</number>
    </property>
-   <widget class="QWidget" name="tab">
+   <widget class="QWidget" name="EditorTab">
     <attribute name="title">
      <string>Tab 1</string>
     </attribute>
-    <widget class="QScrollArea" name="scrollArea">
+    <widget class="QScrollArea" name="EditorArea">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -50,14 +50,15 @@
         <height>239</height>
        </rect>
       </property>
+      <layout class="QVBoxLayout" name="verticalLayout"/>
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab_2">
+   <widget class="QWidget" name="EngineTab">
     <attribute name="title">
      <string>Tab 2</string>
     </attribute>
-    <widget class="QScrollArea" name="scrollArea_2">
+    <widget class="QScrollArea" name="EngineArea">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -78,14 +79,15 @@
         <height>239</height>
        </rect>
       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2"/>
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab_3">
+   <widget class="QWidget" name="GameTab">
     <attribute name="title">
      <string>Page</string>
     </attribute>
-    <widget class="QScrollArea" name="scrollArea_3">
+    <widget class="QScrollArea" name="GameArea">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -106,19 +108,20 @@
         <height>239</height>
        </rect>
       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3"/>
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab_4">
+   <widget class="QWidget" name="InputTab">
     <attribute name="title">
      <string>Page</string>
     </attribute>
-    <widget class="QScrollArea" name="scrollArea_4">
+    <widget class="QScrollArea" name="InputArea">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>511</width>
+       <width>521</width>
        <height>241</height>
       </rect>
      </property>
@@ -130,10 +133,11 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>509</width>
+        <width>519</width>
         <height>239</height>
        </rect>
       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4"/>
      </widget>
     </widget>
    </widget>

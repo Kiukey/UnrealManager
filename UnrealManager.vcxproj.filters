@@ -58,6 +58,12 @@
     <ClCompile Include="WindowProjectSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ConfigFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomCheckBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IOToolBox.h">
@@ -66,12 +72,18 @@
     <ClInclude Include="UnrealProject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ConfigFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="UnrealProjectWidgets.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="WindowProjectSettings.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CustomCheckBox.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

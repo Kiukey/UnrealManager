@@ -5,6 +5,7 @@
 #include "UnrealProject.h"
 #include <qlabel.h>
 #include <qerrormessage.h>
+#include "ConfigFile.h"
 
 UnrealManager::UnrealManager(QWidget *parent)
     : QMainWindow(parent)
@@ -50,8 +51,11 @@ void UnrealManager::InitializeTemplateFolder()
     //TODO Upgrade this so that it detect if one file is missing and regen it , and Add settings at first 
     if (IOToolBox::IsFolderExisting("Templates")) return;
     IOToolBox::CreateFolder("Templates");
+    ConfigFile _file = ConfigFile();
+    QJsonDocument _document = QJsonDocument(_file);
     IOToolBox::CreateFile("Templates/DefaultEditorTemplate.ini");
-    IOToolBox::CreateFile("Templates/DefaultEngineTemplate.ini");
+    QString _json = _document.toJson().constData();
+    IOToolBox::CreateFile("Templates/DefaultEngineTemplate.ini", _json);
     IOToolBox::CreateFile("Templates/DefaultGameTemplate.ini");
     IOToolBox::CreateFile("Templates/DefaultInputTemplate.ini");
 }

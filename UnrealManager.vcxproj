@@ -89,6 +89,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConfigFile.cpp" />
+    <ClCompile Include="CustomCheckBox.cpp" />
     <ClCompile Include="UnrealProject.cpp" />
     <ClCompile Include="UnrealProjectWidgets.cpp" />
     <ClCompile Include="WindowProjectSettings.cpp" />
@@ -103,6 +105,8 @@
     <ResourceCompile Include="UnrealManager.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConfigFile.h" />
+    <QtMoc Include="CustomCheckBox.h" />
     <ClInclude Include="IOToolBox.h" />
     <ClInclude Include="UnrealProject.h" />
     <QtMoc Include="WindowProjectSettings.h" />
