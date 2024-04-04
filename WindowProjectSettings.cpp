@@ -6,6 +6,7 @@
 //#include "CustomCheckBox.h"
 #include <qjsonarray.h>
 #include "qgroupbox.h"
+#include <qlineedit.h>
 
 WindowProjectSettings::WindowProjectSettings(UnrealProject* _project, QWidget* parent)
 	: QDialog(parent)
@@ -75,12 +76,13 @@ void WindowProjectSettings::CreateSetting(const QString& _settingLine, QGroupBox
 	//here _value = SettingsName=value so i need to parse it heeeeeelp
 	if (!_groupBox || !_groupBox->layout()) return;
 
-	const int _equalSignIndex = _settingLine.lastIndexOf("=");
-	QString _settingName = _settingLine.left(_equalSignIndex);
-	QString _valueString = _settingLine.right(_equalSignIndex);
+	//const int _equalSignIndex = _settingLine.lastIndexOf("=");
+	QStringList _setting = _settingLine.split("=", Qt::SplitBehavior::enum_type::SkipEmptyParts);
+	QString _settingName = _setting[0];
+	QString _valueString = _setting[1];
 
-	QLabel* _settingNameLabel = new QLabel(_settingName, _groupBox);
-	QLineEdit* _settingValueEdit = new QLineEdit(/*_valueString,*/_groupBox);
+	QLabel* _settingNameLabel = new QLabel(_settingName.trimmed(), _groupBox);
+	QLineEdit* _settingValueEdit = new QLineEdit(_valueString.trimmed(), _groupBox);
 	//CustomCheckBox* _checkBox = new CustomCheckBox(_settingName, _groupBox);
 	//_checkBox->setChecked(_settingValue);
 	QGridLayout* _layout = (QGridLayout*)_groupBox->layout();
