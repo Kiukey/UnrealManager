@@ -10,7 +10,7 @@ class ConfigFile;
 class CustomCheckBox;
 
 
-class DisplayedSettings
+struct DisplayedSettings
 {
 public:
 	ConfigFile* file = nullptr;
@@ -29,7 +29,7 @@ class WindowProjectSettings : public QDialog
 	Ui::WindowProjectSettingsClass ui;
 	//to not delete because the main window handle that
 	UnrealProject* project = nullptr;
-	std::vector<DisplayedSettings*> templateSettings = std::vector<DisplayedSettings*>();
+	std::vector<DisplayedSettings> templateSettings = std::vector<DisplayedSettings>();
 	std::map<QString, ConfigFile*> files = std::map<QString, ConfigFile*>();
 	//std::vector<SettingsTemplate> templatePaths = std::vector<SettingsTemplate>();
 public:
@@ -47,7 +47,7 @@ private:
 	/// <param name="_filePath"> the path to the .ini file of the project selected</param>
 	/// <param name="_currentSettings">the content of the .ini file of the project</param>
 	/// <param name="_settings">structure wich is keeping the template file and the scrollbox area</param>
-	void GenerateTab(const QString& _filePath,const QString& _currentSettings,DisplayedSettings* _settings);
+	void GenerateTab(const QString& _filePath,const QString& _currentSettings,DisplayedSettings& _settings);
 	/// <summary>
 	/// Create one setting, and set it's value to either the default value in the template or the value in the .ini file
 	/// </summary>
@@ -68,7 +68,7 @@ private:
 	/// <param name="_path">the path to the ConfigFile to put in</param>
 	/// <param name="_area"> the scrollboxArea to put in</param>
 	/// <returns>the struct keeping both the scrollbox area and the configFile</returns>
-	DisplayedSettings* CreateDisplayedSettings(const QString& _path, QScrollArea* _area);
+	DisplayedSettings CreateDisplayedSettings(const QString& _path, QScrollArea* _area);
 	/// <summary>
 	/// return either the default value, or the current value in the file if the parameter exist and there is one
 	/// </summary>

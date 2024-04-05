@@ -24,11 +24,8 @@ WindowProjectSettings::WindowProjectSettings(UnrealProject* _project, QWidget* p
 
 WindowProjectSettings::~WindowProjectSettings()
 {
-	for (DisplayedSettings* _file : templateSettings)
-	{
-		delete _file->file;
-		delete _file;
-	}
+	for (DisplayedSettings& _file : templateSettings)
+		delete _file.file;
 	for (std::pair<QString, ConfigFile*> _file : files)
 		delete _file.second;
 	templateSettings.clear();
@@ -46,19 +43,19 @@ void WindowProjectSettings::GenerateAllTabs()
 	}
 }
 
-void WindowProjectSettings::GenerateTab(const QString& _filePath,const QString& _currentSettings, DisplayedSettings* _settings)
+void WindowProjectSettings::GenerateTab(const QString& _filePath,const QString& _currentSettings, DisplayedSettings& _settings)
 {
 	ConfigFile* _file = new ConfigFile(_currentSettings, _filePath);
-	QStringList _categoryList = _settings->file->GetAllCategories();
-	QVBoxLayout* _layout = new QVBoxLayout(_settings->area);
-	_settings->area->setLayout(_layout);
+	QStringList _categoryList = _settings.file->GetAllCategories();
+    QVBoxLayout* _layout = new QVBoxLayout(_settings.area);
+    _settings.area->widget()->setLayout(_layout);
 	for (const QString& _category : _categoryList)
 	{
 		QJsonArray _settingsList = QJsonArray();
-		if (!_settings->file->GetAllValuesFromCategory(_category, _settingsList)||_settingsList.isEmpty()) continue;
-		QGroupBox* _groupBox = new QGroupBox(_category,_settings->area);
+		if (!_settings.file->GetAllValuesFromCategory(_category, _settingsList)||_settingsList.isEmpty()) continue;
+		QGroupBox* _groupBox = new QGroupBox(_category,_settings.area);
 		_groupBox->setLayout(new QGridLayout(_groupBox));
-		_settings->area->layout()->addWidget(_groupBox);
+		_settings.area->widget()->layout()->addWidget(_groupBox);
 		int i = 0;
 		for (QJsonValue _value : _settingsList)
 		{
@@ -97,10 +94,10 @@ ConfigFile* WindowProjectSettings::LoadSavedFile(const QString& _path,const QByt
 	return _config;
 }
 
-DisplayedSettings* WindowProjectSettings::CreateDisplayedSettings(const QString& _path, QScrollArea* _area)
+DisplayedSettings WindowProjectSettings::CreateDisplayedSettings(const QString& _path, QScrollArea* _area)
 {
 	QByteArray _array = QByteArray(IOToolBox::ReadFile(_path).toStdString().c_str());
-	return new DisplayedSettings(LoadSavedFile(_path,_array), _area);
+	return DisplayedSettings(LoadSavedFile(_path,_array), _area);
 }
 
 QString WindowProjectSettings::GetDefaultValue(const QStringList& _settingLine, const  ConfigFile* _file)
