@@ -2,40 +2,20 @@
 #include "IOToolBox.h"
 #include "qjsonarray.h"
 
-ConfigFile::ConfigFile()
+ConfigFile::ConfigFile(const QString& _filePath)
 {
-	QJsonArray _array;
-	_array.push_back("bAuthorizeAutomaticWidgetVariableCreation = False");
-	insert("[/Script/Engine.UserInterfaceSettings]", QJsonValue(_array));
+	filePath = _filePath;
 }
 
-ConfigFile::ConfigFile(const QString& _toParse)
+ConfigFile::ConfigFile(const QString& _toParse,const QString& _filePath)
 {
-	std::vector<QString> _lines = IOToolBox::GetAllLines(_toParse);
-	if (_lines.size() <= 0) return;
-	for (int i = 0; i < _lines.size(); i++)
-	{
-		const int _category = FindCategory(_lines, i);
-		if (_category != -1)
-		{
-			int y = _category +1;
-			const int _nextCategory = FindCategory(_lines, y);
-			std::vector<QString> _debug = std::vector<QString>();
-			QJsonArray _array = QJsonArray();
-			for (y; y < _nextCategory; y++)
-			{
-				_array.push_back(_lines[y]);
-				_debug.push_back(_lines[y]);
-			}
-			insert(_lines[i], _array);
-			i = y-1;
-		}
-		else return;
-	}
+	ParseFile(_toParse);
+	filePath = _filePath;
 }
 
-ConfigFile::ConfigFile(const QJsonObject& _toGet)
+ConfigFile::ConfigFile(const QJsonObject& _toGet, const QString& _filePath)
 {
+	filePath = _filePath;
 	QStringList _keys = _toGet.keys();
 	for (const QString& _key : _keys)
 	{
@@ -59,9 +39,10 @@ bool ConfigFile::FindSetting(const QString& _categoryName,const QString& _settin
 	if (_array.isEmpty()) return false;
 	for (QJsonValue _value : _array)
 	{
-		if (_value.toString().contains(_settingName))
+		QStringList _valueString = _value.toString().split("=", Qt::SplitBehavior::enum_type::SkipEmptyParts);
+		if (_valueString[0].trimmed().contains(_settingName.trimmed(), Qt::CaseInsensitive))
 		{
-			_retValue = _value;
+			_retValue = _valueString[1];
 			return true;
 		}
 	}
@@ -80,12 +61,71 @@ QStringList ConfigFile::GetAllCategories() const
 	return keys();
 }
 
-//bool ConfigFile::ChangeValueInCategory(const QString& _category, QString& _setting, bool _newValue)
-//{
-//	QString _test;
-//	_test.
-//	_test.arg(_newValue)
-//}
+int ConfigFile::GetValueIndexInCategory(const QString& _categoryName, const QString& _setting)
+{
+	const QJsonArray& _array = value(_categoryName).toArray();
+	if (_array.isEmpty()) return -1;
+	for(int i = 0; i < _array.size() ; i++)
+	{
+		const QJsonValue& _value = _array[i];
+		if (_value.toString().contains(_setting))
+			return i;
+	}
+	return -1;
+}
+
+bool ConfigFile::ChangeValueInCategory(const QString& _categoryName, const QString& _setting, const QString& _newValue)
+{
+	int _index = GetValueIndexInCategory(_categoryName, _setting);
+	QJsonArray _currentArray = take(_categoryName).toArray(); //
+	if (_currentArray.isEmpty()) return false;
+	QString _toAdd = _setting + "=" + _newValue;
+	if (_index == -1)
+		_currentArray.push_back(_toAdd);
+	else
+		_currentArray[_index] = _toAdd;
+	insert(_categoryName, _currentArray);
+	return true;
+}
+
+void ConfigFile::CreateCategory(const QString& _category, const QString& _setting, const QString& _newValue)
+{
+	QJsonArray _array = QJsonArray();
+	_array.push_back(_setting + "=" + _newValue);
+	insert(_category, _array);
+}
+
+QString ConfigFile::ToString(const QString& _category)const
+{
+	QString _toRet = "";
+	QJsonArray _array = QJsonArray();
+	if (!GetAllValuesFromCategory(_category, _array)) return _toRet;
+	_toRet += _category + "\n";
+	for (QJsonValue _value : _array)
+	{
+		_toRet += _value.toString() + "\n";
+	}
+	return _toRet;
+}
+
+bool ConfigFile::SaveFileInProject()
+{
+	return IOToolBox::WriteInFile(filePath, ToIniFile(), true);
+}
+
+QString ConfigFile::GetPath() const
+{
+	return filePath;
+}
+
+QString ConfigFile::ToIniFile() const
+{
+	QString _toReturn = "";
+	QStringList _list = GetAllCategories();
+	for (QString _category : _list)
+		_toReturn += ToString(_category) + "\n";
+	return _toReturn;
+}
 
 int ConfigFile::FindCategory(std::vector<QString> _list, int _currentIndex)
 {
@@ -95,4 +135,30 @@ int ConfigFile::FindCategory(std::vector<QString> _list, int _currentIndex)
 			return i;
 	}
 	return -1;
+}
+
+void ConfigFile::ParseFile(const QString& _toParse)
+{
+	std::vector<QString> _lines = IOToolBox::GetAllLines(_toParse);
+	if (_lines.size() <= 0) return;
+	for (int i = 0; i < _lines.size(); i++)
+	{
+		const int _category = FindCategory(_lines, i);
+		if (_category != -1)
+		{
+			int y = _category + 1;
+			int _nextCategory = FindCategory(_lines, y);
+			_nextCategory = _nextCategory == -1 ? _lines.size() : _nextCategory;
+			std::vector<QString> _debug = std::vector<QString>();
+			QJsonArray _array = QJsonArray();
+			for (y; y < _nextCategory; y++)
+			{
+				_array.push_back(_lines[y]);
+				_debug.push_back(_lines[y]);
+			}
+			insert(_lines[i], _array);
+			i = y - 1;
+		}
+		else return;
+	}
 }

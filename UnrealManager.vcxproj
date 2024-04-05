@@ -91,6 +91,7 @@
   <ItemGroup>
     <ClCompile Include="ConfigFile.cpp" />
     <ClCompile Include="CustomCheckBox.cpp" />
+    <ClCompile Include="CustomLineEdit.cpp" />
     <ClCompile Include="UnrealProject.cpp" />
     <ClCompile Include="UnrealProjectWidgets.cpp" />
     <ClCompile Include="WindowProjectSettings.cpp" />
@@ -107,6 +108,7 @@
   <ItemGroup>
     <ClInclude Include="ConfigFile.h" />
     <QtMoc Include="CustomCheckBox.h" />
+    <QtMoc Include="CustomLineEdit.h" />
     <ClInclude Include="IOToolBox.h" />
     <ClInclude Include="UnrealProject.h" />
     <QtMoc Include="WindowProjectSettings.h" />

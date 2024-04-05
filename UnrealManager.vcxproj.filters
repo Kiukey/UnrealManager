@@ -21,6 +21,24 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Header Files\CustomWidgets">
+      <UniqueIdentifier>{846c5529-a3fe-46b5-92c4-4d6d1f944ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CustomWidgets">
+      <UniqueIdentifier>{bda07e5d-76df-441e-9a80-78b6e768b217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FileClasses">
+      <UniqueIdentifier>{aaa2dce8-1f4e-40a0-8802-70f6169ea05c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FileClasses">
+      <UniqueIdentifier>{d1ee1f59-9a0b-4170-a13b-8113c0bde377}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows">
+      <UniqueIdentifier>{9cbe1628-2b98-4136-8c4c-2249aaf24db1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows">
+      <UniqueIdentifier>{08b7bdf3-f85d-4e65-86bd-180d33d016cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="UnrealManager.qrc">
@@ -29,12 +47,6 @@
     <QtUic Include="UnrealManager.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="UnrealManager.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="UnrealManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <None Include="UnrealManager.ico">
       <Filter>Resource Files</Filter>
     </None>
@@ -49,19 +61,25 @@
     <ClCompile Include="IOToolBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CustomCheckBox.cpp">
+      <Filter>Source Files\CustomWidgets</Filter>
+    </ClCompile>
     <ClCompile Include="UnrealProject.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FileClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigFile.cpp">
+      <Filter>Source Files\FileClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowProjectSettings.cpp">
+      <Filter>Source Files\Windows</Filter>
     </ClCompile>
     <ClCompile Include="UnrealProjectWidgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WindowProjectSettings.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="UnrealManager.cpp">
+      <Filter>Source Files\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="ConfigFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomCheckBox.cpp">
+    <ClCompile Include="CustomLineEdit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -69,21 +87,27 @@
     <ClInclude Include="IOToolBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UnrealProject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ConfigFile.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FileClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="UnrealProject.h">
+      <Filter>Header Files\FileClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="UnrealProjectWidgets.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="WindowProjectSettings.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="CustomCheckBox.h">
+      <Filter>Header Files\CustomWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="WindowProjectSettings.h">
+      <Filter>Header Files\Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="UnrealManager.h">
+      <Filter>Header Files\Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="CustomLineEdit.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

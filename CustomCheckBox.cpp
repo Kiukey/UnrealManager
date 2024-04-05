@@ -10,7 +10,6 @@ CustomCheckBox::CustomCheckBox(const QString& _text, QWidget* _parent) : QCheckB
 	connect(this, &CustomCheckBox::stateChanged, this, &CustomCheckBox::OnStateChanged);
 }
 
-
 void CustomCheckBox::OnStateChanged(int _state)
 {
 	emit OnCheckBoxStateChanged(this, _state);
