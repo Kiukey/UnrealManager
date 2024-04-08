@@ -5,17 +5,20 @@
 #include <QHBoxLayout>
 
 class UnrealProjectWidgets;
+class ConfigFile;
 
-class UnrealProject
+class UnrealProject : public QObject
 {
-
+	Q_OBJECT
 	UnrealProjectWidgets* widgets = nullptr;
 
 	QString projectName = "";
 	//path to project
 	QString projectPath = "";
 	//all the config files in Folder Config
-	std::vector<QString> configFilesPath = std::vector<QString>();
+	//std::vector<QString> configFilesPath = std::vector<QString>();
+
+	std::map<QString,ConfigFile*> configFiles = std::map<QString, ConfigFile*>();
 	//TODO plugins
 public:
 
@@ -25,8 +28,19 @@ public:
 	QString GetProjectName() const;
 	QString GetProjectPath() const;
 	QHBoxLayout* GetProjectWidgetLayout() const;
-	std::vector<QString> GetIniFilePaths();
+	std::vector<QString> GetConfigFilesName() const;
+	QString GetConfigFolderPath() const;
+	std::vector<ConfigFile*> GetConfigFiles();
+
+	void LoadConfigFile();
+signals:
+	void OnSettingsLoaded(std::vector<ConfigFile*> _files);
+
 private:
-	void CreateConfigFiles(const QString& _path);
+	std::map<QString, ConfigFile*> CreateConfigFiles();
+	std::map<QString, ConfigFile*> GetExistingConfigFile();
+private slots:
+	void SetConfigFiles();
+	void DeleteConfigFiles();
 };
 

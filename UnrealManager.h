@@ -17,16 +17,24 @@ private:
 public:
     UnrealManager(QWidget *parent = nullptr);
     ~UnrealManager();
-
-
 private:
     /*add the project to the ui*/
     void AddProject(UnrealProject* _project);
-    /*either if the path is already registered in the projects or not*/
+    /// <summary>
+     /// either if the path is already registered in the projects or not
+    /// </summary>
     bool IsProjectRegisterd(const QString& _path);
-
+    /// <summary>
+    /// create a template folder with all it's files in it if it doesn't exist
+    /// </summary>
     void InitializeTemplateFolder();
 private slots:
-    /*the localize method*/
-    void on_ActionFindProject_triggered();
+    /// <summary>
+    /// open the localize menu
+    /// </summary>
+    void on_LocalizeButton_clicked();
+    /// <summary>
+    /// open the Create project menu
+    /// </summary>
+    void on_CreateButton_clicked();
 };

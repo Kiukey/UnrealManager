@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1046</width>
-    <height>738</height>
+    <width>1032</width>
+    <height>721</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,10 +20,10 @@
    <widget class="QToolBox" name="toolBox">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>60</y>
-      <width>961</width>
-      <height>601</height>
+      <x>30</x>
+      <y>10</y>
+      <width>981</width>
+      <height>651</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -34,8 +34,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>961</width>
-       <height>541</height>
+       <width>981</width>
+       <height>591</height>
       </rect>
      </property>
      <attribute name="label">
@@ -45,9 +45,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>10</y>
-        <width>961</width>
-        <height>521</height>
+        <y>40</y>
+        <width>981</width>
+        <height>551</height>
        </rect>
       </property>
       <property name="widgetResizable">
@@ -58,16 +58,52 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>959</width>
-         <height>519</height>
+         <width>979</width>
+         <height>549</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout"/>
+        <item row="0" column="0" colspan="2">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QStackedWidget" name="projectsPages">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <widget class="QWidget" name="page"/>
+            <widget class="QWidget" name="page_2"/>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="LocalizeButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>461</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Localize Project</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="CreateButton">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>0</y>
+        <width>451</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Create Project</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="Setting_tab">
@@ -75,8 +111,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>961</width>
-       <height>541</height>
+       <width>981</width>
+       <height>591</height>
       </rect>
      </property>
      <attribute name="label">
@@ -90,17 +126,10 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1046</width>
+     <width>1032</width>
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuApplication">
-    <property name="title">
-     <string>Application</string>
-    </property>
-    <addaction name="ActionFindProject"/>
-   </widget>
-   <addaction name="menuApplication"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

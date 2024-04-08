@@ -12,8 +12,9 @@ WindowProjectSettings::WindowProjectSettings(UnrealProject* _project, QWidget* p
 	: QDialog(parent)
 {
 	ui.setupUi(this);
-	//Get the templates
+
 	project = _project;
+	//Get the templates
 	templateSettings.push_back(CreateDisplayedSettings("Templates/DefaultEditorTemplate.ini",ui.EditorArea));
 	templateSettings.push_back(CreateDisplayedSettings("Templates/DefaultEngineTemplate.ini",ui.EngineArea));
 	templateSettings.push_back(CreateDisplayedSettings("Templates/DefaultGameTemplate.ini",ui.GameArea));
@@ -26,8 +27,7 @@ WindowProjectSettings::~WindowProjectSettings()
 {
 	for (DisplayedSettings& _file : templateSettings)
 		delete _file.file;
-	for (std::pair<QString, ConfigFile*> _file : files)
-		delete _file.second;
+
 	templateSettings.clear();
 	files.clear();
 }
@@ -35,17 +35,21 @@ WindowProjectSettings::~WindowProjectSettings()
 void WindowProjectSettings::GenerateAllTabs()
 {
 	if (!project) return;
-	std::vector<QString> _paths = project->GetIniFilePaths();
-	const int _num = _paths.size();
+	std::vector<ConfigFile*> _files = project->GetConfigFiles();
+	const int _num = _files.size();
 	for (int i = 0; i < _num; i++)
 	{
-		GenerateTab(_paths[i],IOToolBox::ReadFile(_paths[i]),templateSettings[i]);
+		//get existing file if there is one or create a new one if none were found
+		/*ConfigFile* _file = _num > 0 ? new ConfigFile(_paths[i], IOToolBox::ReadFile(_paths[i])) : new ConfigFile(project->GetConfigFolderPath() + templateSettings[i].file->GetPath().replace("Template",""));*/
+		std::cout << project->GetProjectPath().toStdString() << std::endl;
+		GenerateTab(_files[i], templateSettings[i]);
+		files.insert(std::pair<QString, ConfigFile*>(ui.tabWidget->widget(files.size())->objectName(), _files[i]));
 	}
 }
 
-void WindowProjectSettings::GenerateTab(const QString& _filePath,const QString& _currentSettings, DisplayedSettings& _settings)
+void WindowProjectSettings::GenerateTab(ConfigFile* _file, DisplayedSettings& _settings)
 {
-	ConfigFile* _file = new ConfigFile(_currentSettings, _filePath);
+	//ConfigFile* _file = new ConfigFile(_currentSettings, _filePath);
 	QStringList _categoryList = _settings.file->GetAllCategories();
     QVBoxLayout* _layout = new QVBoxLayout(_settings.area);
     _settings.area->widget()->setLayout(_layout);
@@ -63,7 +67,6 @@ void WindowProjectSettings::GenerateTab(const QString& _filePath,const QString& 
 			i++;
 		}
 	}
-	files.insert(std::pair<QString, ConfigFile*>(ui.tabWidget->widget(files.size())->objectName(), _file));
 }
 
 void WindowProjectSettings::CreateSetting(const QString& _settingLine, QGroupBox* _groupBox,const ConfigFile* _file, int _i)

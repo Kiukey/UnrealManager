@@ -47,7 +47,7 @@ private:
 	/// <param name="_filePath"> the path to the .ini file of the project selected</param>
 	/// <param name="_currentSettings">the content of the .ini file of the project</param>
 	/// <param name="_settings">structure wich is keeping the template file and the scrollbox area</param>
-	void GenerateTab(const QString& _filePath,const QString& _currentSettings,DisplayedSettings& _settings);
+	void GenerateTab(ConfigFile* _file,DisplayedSettings& _settings);
 	/// <summary>
 	/// Create one setting, and set it's value to either the default value in the template or the value in the .ini file
 	/// </summary>

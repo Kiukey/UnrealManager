@@ -90,12 +90,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConfigFile.cpp" />
+    <ClCompile Include="CreateProjectWindow.cpp" />
     <ClCompile Include="CustomCheckBox.cpp" />
     <ClCompile Include="CustomLineEdit.cpp" />
     <ClCompile Include="UnrealProject.cpp" />
     <ClCompile Include="UnrealProjectWidgets.cpp" />
     <ClCompile Include="WindowProjectSettings.cpp" />
     <QtRcc Include="UnrealManager.qrc" />
+    <QtUic Include="CreateProjectWindow.ui" />
     <QtUic Include="UnrealManager.ui" />
     <QtMoc Include="UnrealManager.h" />
     <ClCompile Include="IOToolBox.cpp" />
@@ -109,8 +111,9 @@
     <ClInclude Include="ConfigFile.h" />
     <QtMoc Include="CustomCheckBox.h" />
     <QtMoc Include="CustomLineEdit.h" />
+    <QtMoc Include="CreateProjectWindow.h" />
     <ClInclude Include="IOToolBox.h" />
-    <ClInclude Include="UnrealProject.h" />
+    <QtMoc Include="UnrealProject.h" />
     <QtMoc Include="WindowProjectSettings.h" />
     <QtMoc Include="UnrealProjectWidgets.h" />
   </ItemGroup>

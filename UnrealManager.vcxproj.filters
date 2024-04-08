@@ -82,15 +82,15 @@
     <ClCompile Include="CustomLineEdit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CreateProjectWindow.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IOToolBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ConfigFile.h">
-      <Filter>Header Files\FileClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="UnrealProject.h">
       <Filter>Header Files\FileClasses</Filter>
     </ClInclude>
   </ItemGroup>
@@ -110,9 +110,18 @@
     <QtMoc Include="CustomLineEdit.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="CreateProjectWindow.h">
+      <Filter>Header Files\Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="UnrealProject.h">
+      <Filter>Header Files\FileClasses</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="WindowProjectSettings.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="CreateProjectWindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

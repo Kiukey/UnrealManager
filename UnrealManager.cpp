@@ -6,12 +6,12 @@
 #include <qlabel.h>
 #include <qerrormessage.h>
 #include "ConfigFile.h"
+#include "UnrealProjectWidgets.h"
 
 UnrealManager::UnrealManager(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-
     InitializeTemplateFolder();
 }
 
@@ -33,6 +33,18 @@ void UnrealManager::AddProject(UnrealProject* _project)
     QWidget* _widget = new QWidget();
     _widget->setLayout(_project->GetProjectWidgetLayout());
     ui.ProjectsList->widget()->layout()->addWidget(_widget);
+    //if (ui.projectsPages->children().last()->children().count() < 1)
+    //{
+    //    QWidget* _widgetToAdd = (QWidget*)ui.projectsPages->children().last();
+    //    _widgetToAdd->layout()->addWidget(_widget);
+    //}
+    //else
+    //{
+    //    QWidget* _newPage = new QWidget();
+    //    ui.projectsPages->addWidget(_newPage);
+    //    //_newPage->
+    //}
+    //TODO Add widget to page widget (stackWidget) corresponding to number of projects max
     projects.push_back(_project);
 }
 
@@ -57,7 +69,7 @@ void UnrealManager::InitializeTemplateFolder()
     IOToolBox::CreateFile("Templates/DefaultInputTemplate.ini");
 }
 
-void UnrealManager::on_ActionFindProject_triggered()
+void UnrealManager::on_LocalizeButton_clicked()
 {
     QString _extension = "*.uproject";
     QUrl _pathToProject = QFileDialog::getOpenFileUrl(this, QString(), QUrl(), _extension, &_extension);
@@ -73,3 +85,7 @@ void UnrealManager::on_ActionFindProject_triggered()
     AddProject(_project);
 }
 
+void UnrealManager::on_CreateButton_clicked()
+{
+
+}

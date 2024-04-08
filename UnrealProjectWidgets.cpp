@@ -17,7 +17,7 @@ UnrealProjectWidgets::UnrealProjectWidgets(UnrealProject* _project)
 	layout->addWidget(openProjectButton);
 	layout->addWidget(openProjectSettingsButton);
 	connect(openProjectButton, &QPushButton::clicked, this, &UnrealProjectWidgets::OpenProject);
-	connect(openProjectSettingsButton, &QPushButton::clicked, this, &UnrealProjectWidgets::OpenProjectSettings);
+	connect(owner, &UnrealProject::OnSettingsLoaded, this, &UnrealProjectWidgets::OpenProjectSettings);
 	//openProjectButton->addAction()
 }
 
@@ -34,11 +34,17 @@ QHBoxLayout* UnrealProjectWidgets::GetWidget() const
 	return layout;
 }
 
+QPushButton* UnrealProjectWidgets::GetOpenProjectSettingsButton()
+{
+	return openProjectSettingsButton;
+}
+
 void UnrealProjectWidgets::OpenProjectSettings()
 {
 	WindowProjectSettings* _window = new WindowProjectSettings(owner);
 	_window->setModal(true);
 	_window->exec();
+	emit OnProjectSettingsWindowClosed();
 	delete _window;
 }
 

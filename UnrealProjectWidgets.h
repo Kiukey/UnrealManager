@@ -21,8 +21,10 @@ public:
 	UnrealProjectWidgets(UnrealProject* _project);
 	~UnrealProjectWidgets();
 	QHBoxLayout* GetWidget() const;
-
+	QPushButton* GetOpenProjectSettingsButton();
 private slots:
 	void OpenProject();
 	void OpenProjectSettings();
+signals:
+	void OnProjectSettingsWindowClosed();
 };
