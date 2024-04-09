@@ -4,7 +4,7 @@
 class ConfigFile : public QJsonObject
 {
 	QString filePath = "";
-
+	QString fileName = "";
 
 public:
 	ConfigFile(const QString& _filePath);
@@ -40,6 +40,7 @@ public:
 	QString ToString(const QString& _category) const;
 	bool SaveFileInProject();
 	QString GetPath() const;
+	void SetPath(const QString& _path);
 private:
 	int FindCategory(std::vector<QString> _list, int _currentIndex);
 	void ParseFile(const QString& _toParse);

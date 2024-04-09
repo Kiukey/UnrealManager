@@ -1,7 +1,7 @@
 #include "UnrealProjectWidgets.h"
 #include "UnrealProject.h"
 #include <stdlib.h>
-#include "WindowProjectSettings.h"
+#include "WindowProjectSettingsModifier.h"
 
 UnrealProjectWidgets::UnrealProjectWidgets(UnrealProject* _project)
 {
@@ -17,7 +17,7 @@ UnrealProjectWidgets::UnrealProjectWidgets(UnrealProject* _project)
 	layout->addWidget(openProjectButton);
 	layout->addWidget(openProjectSettingsButton);
 	connect(openProjectButton, &QPushButton::clicked, this, &UnrealProjectWidgets::OpenProject);
-	connect(owner, &UnrealProject::OnSettingsLoaded, this, &UnrealProjectWidgets::OpenProjectSettings);
+	connect(openProjectSettingsButton, &QPushButton::clicked, this, &UnrealProjectWidgets::OpenProjectSettings);
 	//openProjectButton->addAction()
 }
 
@@ -41,7 +41,7 @@ QPushButton* UnrealProjectWidgets::GetOpenProjectSettingsButton()
 
 void UnrealProjectWidgets::OpenProjectSettings()
 {
-	WindowProjectSettings* _window = new WindowProjectSettings(owner);
+	WindowProjectSettingsModifier* _window = new WindowProjectSettingsModifier(owner);
 	_window->setModal(true);
 	_window->exec();
 	emit OnProjectSettingsWindowClosed();

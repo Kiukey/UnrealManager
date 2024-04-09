@@ -15,6 +15,7 @@ class CreateProjectWindow : public QDialog
 private:
 	Ui::CreateProjectWindowClass* ui;
 	UnrealProject* project = nullptr;
+	QString selectedPath = "C:";
 public:
 	CreateProjectWindow(QWidget *parent = nullptr);
 	~CreateProjectWindow();
@@ -23,5 +24,8 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	UnrealProject* CreateProject();
-
+private:
+	void OnProjectNameChanged();
+	void OnChangePathClicked();
+	void ChangeProjectSettings();
 };

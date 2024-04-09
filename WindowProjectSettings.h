@@ -27,6 +27,7 @@ class WindowProjectSettings : public QDialog
 {
 	Q_OBJECT
 	Ui::WindowProjectSettingsClass ui;
+protected:
 	//to not delete because the main window handle that
 	UnrealProject* project = nullptr;
 	std::vector<DisplayedSettings> templateSettings = std::vector<DisplayedSettings>();
@@ -100,6 +101,5 @@ private:
 		}
 		return false;
 	}
-private slots:
-	void on_applyButton_clicked();
+
 };

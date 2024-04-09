@@ -5,17 +5,23 @@
 ConfigFile::ConfigFile(const QString& _filePath)
 {
 	filePath = _filePath;
+	QStringList _list = _filePath.split("/");
+	fileName = _list[_list.count()-1];
 }
 
 ConfigFile::ConfigFile(const QString& _toParse,const QString& _filePath)
 {
 	ParseFile(_toParse);
 	filePath = _filePath;
+	QStringList _list = _filePath.split("/");
+	fileName = _list[_list.count() - 1];
 }
 
 ConfigFile::ConfigFile(const QJsonObject& _toGet, const QString& _filePath)
 {
 	filePath = _filePath;
+	QStringList _list = _filePath.split("/");
+	fileName = _list[_list.count() - 1];
 	QStringList _keys = _toGet.keys();
 	for (const QString& _key : _keys)
 	{
@@ -116,6 +122,11 @@ bool ConfigFile::SaveFileInProject()
 QString ConfigFile::GetPath() const
 {
 	return filePath;
+}
+
+void ConfigFile::SetPath(const QString& _path)
+{
+	filePath = _path + "/" +fileName;
 }
 
 QString ConfigFile::ToIniFile() const

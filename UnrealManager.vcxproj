@@ -96,6 +96,7 @@
     <ClCompile Include="UnrealProject.cpp" />
     <ClCompile Include="UnrealProjectWidgets.cpp" />
     <ClCompile Include="WindowProjectSettings.cpp" />
+    <ClCompile Include="WindowProjectSettingsModifier.cpp" />
     <QtRcc Include="UnrealManager.qrc" />
     <QtUic Include="CreateProjectWindow.ui" />
     <QtUic Include="UnrealManager.ui" />
@@ -105,10 +106,12 @@
     <ClCompile Include="main.cpp" />
     <None Include="UnrealManager.ico" />
     <QtUic Include="WindowProjectSettings.ui" />
+    <QtUic Include="WindowProjectSettingsModifier.ui" />
     <ResourceCompile Include="UnrealManager.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConfigFile.h" />
+    <QtMoc Include="WindowProjectSettingsModifier.h" />
     <QtMoc Include="CustomCheckBox.h" />
     <QtMoc Include="CustomLineEdit.h" />
     <QtMoc Include="CreateProjectWindow.h" />

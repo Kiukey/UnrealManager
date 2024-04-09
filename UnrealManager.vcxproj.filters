@@ -85,6 +85,9 @@
     <ClCompile Include="CreateProjectWindow.cpp">
       <Filter>Source Files\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="WindowProjectSettingsModifier.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IOToolBox.h">
@@ -116,12 +119,18 @@
     <QtMoc Include="UnrealProject.h">
       <Filter>Header Files\FileClasses</Filter>
     </QtMoc>
+    <QtMoc Include="WindowProjectSettingsModifier.h">
+      <Filter>Header Files\Windows</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="WindowProjectSettings.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="CreateProjectWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="WindowProjectSettingsModifier.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

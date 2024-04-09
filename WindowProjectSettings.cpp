@@ -135,15 +135,3 @@ void WindowProjectSettings::ChangeParameter(const QString& _file, const QString&
 		_fileObject->CreateCategory(_category, _setting, _value);
 }
 
-void WindowProjectSettings::on_applyButton_clicked()
-{
-	for (std::pair<QString, ConfigFile*> _pair : files)
-	{
-		if (!_pair.second->SaveFileInProject())
-		{
-			QErrorMessage _message = QErrorMessage(this);
-			_message.showMessage(QString("Error saving file in path %1").arg(_pair.second->GetPath()));
-			_message.exec();
-		}
-	}
-}

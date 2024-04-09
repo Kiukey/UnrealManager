@@ -26,13 +26,15 @@ public:
 	~UnrealProject();
 	
 	QString GetProjectName() const;
+	void SetProjectName(const QString& _name);
 	QString GetProjectPath() const;
+	void SetProjectPath(const QString& _path);
 	QHBoxLayout* GetProjectWidgetLayout() const;
 	std::vector<QString> GetConfigFilesName() const;
 	QString GetConfigFolderPath() const;
 	std::vector<ConfigFile*> GetConfigFiles();
-
 	void LoadConfigFile();
+	void UnloadConfigFiles();
 signals:
 	void OnSettingsLoaded(std::vector<ConfigFile*> _files);
 

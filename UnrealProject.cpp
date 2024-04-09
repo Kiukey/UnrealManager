@@ -6,7 +6,8 @@
 UnrealProject::UnrealProject(const QString& _path, const QString& _projectName)
 {
 	//constructor to create a project 
-	QString _projectPath = _path.first(_path.lastIndexOf("/"));
+	const int _index = _path.lastIndexOf("/");
+	QString _projectPath = _index >= 0 ? _path.first(_index) : _path;
 	projectPath = _path;
 	projectName = _projectName;
 
@@ -14,7 +15,7 @@ UnrealProject::UnrealProject(const QString& _path, const QString& _projectName)
 	//if not create them and stock them
 	QString _projectConfigFolder = _projectPath.append("/Config");
 	widgets = new UnrealProjectWidgets(this);
-	widgets->GetOpenProjectSettingsButton()->connect(widgets->GetOpenProjectSettingsButton(), &QPushButton::clicked, this, &UnrealProject::LoadConfigFile);
+	//widgets->GetOpenProjectSettingsButton()->connect(widgets->GetOpenProjectSettingsButton(), &QPushButton::clicked, this, &UnrealProject::LoadConfigFile);
 	//connect(widgets, &UnrealProjectWidgets::OnProjectSettingsWindowClosed, this, &UnrealProject::DeleteConfigFiles);
 }
 
@@ -30,9 +31,23 @@ QString UnrealProject::GetProjectName() const
 	return projectName;
 }
 
+void UnrealProject::SetProjectName(const QString& _name)
+{
+	projectName = "";
+}
+
 QString UnrealProject::GetProjectPath() const
 {
 	return projectPath;
+}
+
+void UnrealProject::SetProjectPath(const QString& _path)
+{
+	projectPath = _path;
+	for (std::pair _pair : configFiles)
+	{
+		_pair.second->SetPath(_path + "/Config");
+	}
 }
 
 QHBoxLayout* UnrealProject::GetProjectWidgetLayout() const
@@ -43,7 +58,11 @@ QHBoxLayout* UnrealProject::GetProjectWidgetLayout() const
 
 QString UnrealProject::GetConfigFolderPath() const
 {
-	QString _toRet = projectPath.first(projectPath.lastIndexOf("/"));
+	//D:Folder/UnrealProject.uproject
+	const int _index = projectPath.lastIndexOf("/");
+	QString _toRet = "";
+	if(_index >= 0)
+		_toRet += projectPath.first(_index);
 	_toRet += "/Config";
 	return _toRet;
 }
@@ -60,6 +79,11 @@ void UnrealProject::LoadConfigFile()
 {
 	SetConfigFiles();
 	emit OnSettingsLoaded(GetConfigFiles());
+}
+
+void UnrealProject::UnloadConfigFiles()
+{
+	DeleteConfigFiles();
 }
 
 std::map<QString,ConfigFile*> UnrealProject::CreateConfigFiles()
