@@ -10,13 +10,10 @@ UnrealProject::UnrealProject(const QString& _path, const QString& _projectName)
 	QString _projectPath = _index >= 0 ? _path.first(_index) : _path;
 	projectPath = _path;
 	projectName = _projectName;
-
 	//if config folder exist Get the .ini files 
 	//if not create them and stock them
 	QString _projectConfigFolder = _projectPath.append("/Config");
 	widgets = new UnrealProjectWidgets(this);
-	//widgets->GetOpenProjectSettingsButton()->connect(widgets->GetOpenProjectSettingsButton(), &QPushButton::clicked, this, &UnrealProject::LoadConfigFile);
-	//connect(widgets, &UnrealProjectWidgets::OnProjectSettingsWindowClosed, this, &UnrealProject::DeleteConfigFiles);
 }
 
 UnrealProject::~UnrealProject()
@@ -86,6 +83,14 @@ void UnrealProject::UnloadConfigFiles()
 	DeleteConfigFiles();
 }
 
+QString UnrealProject::ToJson() const
+{
+	QString _toRet = "{\n";
+	_toRet += "\"EngineAssociation\" : \"5.2\",\n";
+	_toRet += "\"Plugins\": [\n{\n\"Name\": \"ModelingToolsEditorMode\",\n\"Enabled\" : true,\n\"TargetAllowList\" : [\n\"Editor\"\n]\n}\n]\n}";
+	return _toRet;
+}
+
 std::map<QString,ConfigFile*> UnrealProject::CreateConfigFiles()
 {
 	std::map<QString, ConfigFile*>_files = std::map<QString, ConfigFile*>();
@@ -119,6 +124,7 @@ void UnrealProject::DeleteConfigFiles()
 
 void UnrealProject::SetConfigFiles()
 {
+	//Todo fix keys not good 
 	configFiles = IOToolBox::IsFolderExisting(GetConfigFolderPath()) ? GetExistingConfigFile() : CreateConfigFiles();
 }
 

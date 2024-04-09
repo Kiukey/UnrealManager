@@ -35,6 +35,7 @@ public:
 	std::vector<ConfigFile*> GetConfigFiles();
 	void LoadConfigFile();
 	void UnloadConfigFiles();
+	QString ToJson() const;
 signals:
 	void OnSettingsLoaded(std::vector<ConfigFile*> _files);
 

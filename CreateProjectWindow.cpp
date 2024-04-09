@@ -2,6 +2,8 @@
 #include "UnrealProject.h"
 #include <qfiledialog.h>
 #include "WindowProjectSettings.h"
+#include "IOToolBox.h"
+#include "ConfigFile.h"
 
 CreateProjectWindow::CreateProjectWindow(QWidget *parent)
 	: QDialog(parent)
@@ -9,12 +11,12 @@ CreateProjectWindow::CreateProjectWindow(QWidget *parent)
 {
 	ui->setupUi(this);
 
-
 	ui->pathLineEdit->setText("C:/DefaultName");
 	ui->projectNameEdit->setText("DefaultName");
 	connect(ui->projectNameEdit, &QLineEdit::editingFinished, this, &CreateProjectWindow::OnProjectNameChanged);
 	connect(ui->selectPathButton, &QPushButton::clicked, this, &CreateProjectWindow::OnChangePathClicked);
 	connect(ui->settingsButton, &QPushButton::clicked, this, &CreateProjectWindow::ChangeProjectSettings);
+	connect(ui->createButton, &QPushButton::clicked, this, &CreateProjectWindow::CreateButtonClicked);
 }
 
 CreateProjectWindow::~CreateProjectWindow()
@@ -57,4 +59,19 @@ void CreateProjectWindow::ChangeProjectSettings()
 	_newWindow->exec();
 
 	delete _newWindow;
+}
+
+void CreateProjectWindow::CreateButtonClicked()
+{
+	//content, Config,.uproject
+	QString _projectName = ui->projectNameEdit->text();
+	QString _toSet = selectedPath + (_projectName.isEmpty() ? "" : "/" + ui->projectNameEdit->text());
+	IOToolBox::CreateFolder(_toSet);
+	IOToolBox::WriteInFile(project->GetProjectPath() + "/" + project->GetProjectName(), project->ToJson(),true);
+	IOToolBox::CreateFolder(project->GetProjectPath() + "/Content");
+	IOToolBox::CreateFolder(project->GetConfigFolderPath());
+	for (ConfigFile* _file : project->GetConfigFiles())
+	{
+		IOToolBox::CreateFile(_file->GetPath(), _file->ToIniFile());
+	}
 }

@@ -28,4 +28,5 @@ private:
 	void OnProjectNameChanged();
 	void OnChangePathClicked();
 	void ChangeProjectSettings();
+	void CreateButtonClicked();
 };
