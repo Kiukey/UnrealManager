@@ -60,7 +60,7 @@ bool UnrealManager::IsProjectRegisterd(const QString& _path)
 {
     for (UnrealProject* _project : projects)
     {
-        if (_project->GetProjectPath() == _path)
+        if (_project->GetPathToUprojectFile() == _path)
             return true;
     }
     return false;
@@ -122,8 +122,8 @@ void UnrealManager::on_LocalizeButton_clicked()
 void UnrealManager::on_CreateButton_clicked()
 {
     CreateProjectWindow* _window = new CreateProjectWindow();
-    _window->CreateProject();
-    //AddProject(_window->CreateProject());
+    UnrealProject* _project = _window->CreateProject();
+    AddProject(_project);
 }
 
 void UnrealManager::on_nextPage_clicked()

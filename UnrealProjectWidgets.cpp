@@ -9,7 +9,7 @@ UnrealProjectWidgets::UnrealProjectWidgets(UnrealProject* _project)
 
 	layout = new QHBoxLayout();
 	projectName = new QLabel(_project->GetProjectName());
-	projectPath = new QLabel(_project->GetProjectPath());
+	projectPath = new QLabel(_project->GetPathToUprojectFile());
 	openProjectButton = new QPushButton("Open project");
 	openProjectSettingsButton = new QPushButton("Open Project settings");
 	layout->addWidget(projectName);
@@ -18,6 +18,8 @@ UnrealProjectWidgets::UnrealProjectWidgets(UnrealProject* _project)
 	layout->addWidget(openProjectSettingsButton);
 	connect(openProjectButton, &QPushButton::clicked, this, &UnrealProjectWidgets::OpenProject);
 	connect(openProjectSettingsButton, &QPushButton::clicked, this, &UnrealProjectWidgets::OpenProjectSettings);
+	connect(owner, &UnrealProject::OnNameChanged, this, &UnrealProjectWidgets::OnNameChanged);
+	connect(owner, &UnrealProject::OnPathChanged, this, &UnrealProjectWidgets::OnPathChanged);
 	//openProjectButton->addAction()
 }
 
@@ -46,6 +48,16 @@ void UnrealProjectWidgets::OpenProjectSettings()
 	_window->exec();
 	emit OnProjectSettingsWindowClosed();
 	delete _window;
+}
+
+void UnrealProjectWidgets::OnNameChanged(const QString& _name)
+{
+	projectName->setText(_name);
+}
+
+void UnrealProjectWidgets::OnPathChanged(const QString& _path)
+{
+	projectPath->setText(_path);
 }
 
 void UnrealProjectWidgets::OpenProject()

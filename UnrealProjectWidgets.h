@@ -25,6 +25,8 @@ public:
 private slots:
 	void OpenProject();
 	void OpenProjectSettings();
+	void OnNameChanged(const QString& _name);
+	void OnPathChanged(const QString& _path);
 signals:
 	void OnProjectSettingsWindowClosed();
 };

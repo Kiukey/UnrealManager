@@ -41,7 +41,7 @@ void WindowProjectSettings::GenerateAllTabs()
 	{
 		//get existing file if there is one or create a new one if none were found
 		/*ConfigFile* _file = _num > 0 ? new ConfigFile(_paths[i], IOToolBox::ReadFile(_paths[i])) : new ConfigFile(project->GetConfigFolderPath() + templateSettings[i].file->GetPath().replace("Template",""));*/
-		std::cout << project->GetProjectPath().toStdString() << std::endl;
+		std::cout << project->GetPathToUprojectFile().toStdString() << std::endl;
 		GenerateTab(_files[i], templateSettings[i]);
 		files.insert(std::pair<QString, ConfigFile*>(ui.tabWidget->widget(files.size())->objectName(), _files[i]));
 	}
@@ -80,7 +80,7 @@ void WindowProjectSettings::CreateSetting(const QString& _settingLine, QGroupBox
 	QLabel* _settingNameLabel = new QLabel(_settingName.trimmed(), _groupBox);
 	_settingNameLabel->setMinimumSize(50, 50);
 	CustomLineEdit* _settingValueEdit = new CustomLineEdit(_valueString.trimmed(), _groupBox);
-	_settingValueEdit->setObjectName(_groupBox->title() + _settingName.trimmed());
+	_settingValueEdit->setObjectName(_settingName.trimmed());
 	_settingValueEdit->setMinimumSize(50, 20);
 	QGridLayout* _layout = (QGridLayout*)_groupBox->layout();
 	if (!_layout) return;

@@ -104,12 +104,15 @@ void ConfigFile::CreateCategory(const QString& _category, const QString& _settin
 QString ConfigFile::ToString(const QString& _category)const
 {
 	QString _toRet = "";
+	std::string _retValue = "";
 	QJsonArray _array = QJsonArray();
 	if (!GetAllValuesFromCategory(_category, _array)) return _toRet;
 	_toRet += _category + "\n";
+	//_retValue += _category.toStdString() + "\n";
 	for (QJsonValue _value : _array)
 	{
 		_toRet += _value.toString() + "\n";
+		//_retValue += _value.toString().toStdString() + "\n";
 	}
 	return _toRet;
 }

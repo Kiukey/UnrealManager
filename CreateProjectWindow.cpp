@@ -49,7 +49,7 @@ void CreateProjectWindow::OnChangePathClicked()
 	QString _projectName = ui->projectNameEdit->text();
 	QString _toSet = selectedPath + (_projectName.isEmpty() ? "" : "/" + ui->projectNameEdit->text());
 	ui->pathLineEdit->setText(_toSet);
-	project->SetProjectPath(_toSet);
+	project->SetProjectPath(selectedPath);
 }
 
 void CreateProjectWindow::ChangeProjectSettings()
@@ -63,15 +63,32 @@ void CreateProjectWindow::ChangeProjectSettings()
 
 void CreateProjectWindow::CreateButtonClicked()
 {
+#pragma region Comments
 	//content, Config,.uproject
-	QString _projectName = ui->projectNameEdit->text();
-	QString _toSet = selectedPath + (_projectName.isEmpty() ? "" : "/" + ui->projectNameEdit->text());
-	IOToolBox::CreateFolder(_toSet);
-	IOToolBox::WriteInFile(project->GetProjectPath() + "/" + project->GetProjectName(), project->ToJson(),true);
-	IOToolBox::CreateFolder(project->GetProjectPath() + "/Content");
-	IOToolBox::CreateFolder(project->GetConfigFolderPath());
-	for (ConfigFile* _file : project->GetConfigFiles())
-	{
-		IOToolBox::CreateFile(_file->GetPath(), _file->ToIniFile());
-	}
+	//QString _projectName = ui->projectNameEdit->text();
+	//QString _toSet = selectedPath + (_projectName.isEmpty() ? "" : "/" + ui->projectNameEdit->text());
+	//IOToolBox::CreateFolder(_toSet);
+	//IOToolBox::CreateFile(project->GetPathToUprojectFile(), project->ToJson(ui->CodeModuleCheckBox->isChecked()));
+	//IOToolBox::CreateFolder(project->GetContentFolderPath());
+	//IOToolBox::CreateFolder(project->GetConfigFolderPath());
+
+	////SourceFolder
+	//IOToolBox::CreateFolder(project->GetSourceFolderPath());
+	//IOToolBox::CreateTargetFile(project->GetSourceFolderPath() + "/" + _projectName +".Target.cs", _projectName,false);
+	//IOToolBox::CreateTargetFile(project->GetSourceFolderPath() + "/" + _projectName + "Editor.Target.cs", _projectName,true);
+	////Create Build.CS
+	//QString _folderPath = project->GetSourceFolderPath() + "/" + _projectName;
+	//IOToolBox::CreateFolder(_folderPath);
+	//IOToolBox::CreateBuildCS(_folderPath + "/" + _projectName + ".Build.cs", _projectName);
+	//IOToolBox::CreateGameModeBaseFiles(_folderPath, _projectName);
+	//IOToolBox::CreateFile(_folderPath + "/" + _projectName + ".h", "// Copyright Epic Games, Inc. All Rights Reserved.\n#pragma once\n#include \"CoreMinimal.h\"");
+	//IOToolBox::CreateFile(_folderPath + "/" + _projectName + ".cpp", "// Copyright Epic Games, Inc. All Rights Reserved.\n#include \"" + _projectName + ".h\"\n#include \"Modules/ModuleManager.h\"\n\n		IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, " + _projectName + ", \"" + _projectName + "\"); ");
+	////
+	//for (ConfigFile* _file : project->GetConfigFiles())
+	//{
+	//	IOToolBox::CreateFile(_file->GetPath(), _file->ToIniFile());
+	//}
+#pragma endregion
+	project->CreateProjectFiles(ui->CodeModuleCheckBox->isChecked());
+	close();
 }

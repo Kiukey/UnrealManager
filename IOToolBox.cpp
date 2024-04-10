@@ -1,6 +1,8 @@
 #include "IOToolBox.h"
 #include <filesystem>
 
+//#define BUILD_CONTENT(projectName)"// Copyright Epic Games, Inc. All Rights Reserved.\n\nusing UnrealBuildTool;\n\npublic class "+projectName+" : ModuleRules\n{\n    public "+projectName+"(ReadOnlyTargetRules Target) : base(Target)\n    {\nPCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;\nPublicDependencyModuleNames.AddRange(new string[] { \"Core\",\"CoreUObject\", \"Engine\", \"InputCore\"});\n}\n}"
+
 QString IOToolBox::ReadFile(const QString& _path)
 {
     QString _toRet;
@@ -62,6 +64,20 @@ std::vector<QString> IOToolBox::GetAllLines(const QString& _fileContent)
     return _lines;
 }
 
+//bool IOToolBox::CreateTargetFile(const QString& _path, const QString& _projectName, bool _isEditor)
+//{
+//    QString _toWrite = _isEditor ? TARGET_EDITOR_CONTENT(_projectName) : TARGET_CONTENT(_projectName);
+//    return CreateFile(_path, _toWrite);
+//}
+
+//bool IOToolBox::CreateBuildCS(const QString& _path, const QString& _projectName)
+//{
+//    QString _toWrite = BUILD_CONTENT(_projectName);
+//    return CreateFile(_path, _toWrite);
+//}
+
+
+
 bool IOToolBox::IsFolderExisting(const QString& _folderPath)
 {
     return  std::filesystem::exists(_folderPath.toStdString());;
@@ -76,7 +92,9 @@ std::vector<QString> IOToolBox::GetFilesInFolder(const QString& _folderPath)
    {
        if (_entry.is_directory())
            continue;
-       _toRet.push_back(_entry.path().string().c_str());
+       QString _path = _entry.path().string().c_str();
+       _path.replace("\\", "/");
+       _toRet.push_back(_path);
    }
    return _toRet;
 }

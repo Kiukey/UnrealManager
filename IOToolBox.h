@@ -2,6 +2,7 @@
 #include <iostream>
 #include <qstring.h>
 
+
 class IOToolBox
 {
 	static inline FILE* currentFile = nullptr;
@@ -13,6 +14,9 @@ public:
 	static bool CreateFile(const QString& _completePath,const QString& _toWrite = "");
 	static std::vector<QString> GetAllLines(const QString& _fileContent);
 
+	//static bool CreateTargetFile(const QString& _path, const QString& _projectName, bool _isEditor);
+	//static bool CreateBuildCS(const QString& _path, const QString& _projectName);
+	//static bool CreateGameModeBaseFiles(const QString& _path,const QString& _projectName);
 #pragma region FolderMethods
 	static bool IsFolderExisting(const QString& _folderName);
 	static std::vector<QString> GetFilesInFolder(const QString& _folderPath);

@@ -3,16 +3,18 @@
 #include "UnrealProjectWidgets.h"
 #include "ConfigFile.h"
 
+#define GAMEMODEBASE_CONTENT(projectName) "#include \"CoreMinimal.h\"\n#include \"GameFramework/GameModeBase.h\"\n\n#include \""+projectName+"GameModeBase.generated.h\"\n/*\n*\n*\n*/\nUCLASS()\nclass "+projectName.toUpper()+"_API A"+projectName+"GameModeBase : public AGameModeBase\n{\n    GENERATED_BODY()\n\n};"
+#define TARGET_CONTENT(projectName) "// Copyright Epic Games, Inc. All Rights Reserved.\nusing UnrealBuildTool;\nusing System.Collections.Generic;\n\npublic class " + projectName+"Target : TargetRules\n{\npublic "+projectName+"Target(TargetInfo Target) : base(Target)\n{\n\nType = TargetType.Game;\nDefaultBuildSettings = BuildSettingsVersion.V2;\n\nIncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_1;\nExtraModuleNames.Add(\""+projectName+"\");\n}\n}\n"
+#define TARGET_EDITOR_CONTENT(projectName) "// Copyright Epic Games, Inc. All Rights Reserved.\nusing UnrealBuildTool;\nusing System.Collections.Generic;\n\npublic class " + projectName+"EditorTarget : TargetRules\n{\npublic "+projectName+"EditorTarget(TargetInfo Target) : base(Target)\n{\n\nType = TargetType.Editor;\nDefaultBuildSettings = BuildSettingsVersion.V2;\n\nIncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_1;\nExtraModuleNames.Add(\""+projectName+"\");\n}\n}\n"
+
+
 UnrealProject::UnrealProject(const QString& _path, const QString& _projectName)
 {
 	//constructor to create a project 
 	const int _index = _path.lastIndexOf("/");
 	QString _projectPath = _index >= 0 ? _path.first(_index) : _path;
 	projectPath = _path;
-	projectName = _projectName;
-	//if config folder exist Get the .ini files 
-	//if not create them and stock them
-	QString _projectConfigFolder = _projectPath.append("/Config");
+	projectName = _projectName.split(".")[0];
 	widgets = new UnrealProjectWidgets(this);
 }
 
@@ -30,21 +32,25 @@ QString UnrealProject::GetProjectName() const
 
 void UnrealProject::SetProjectName(const QString& _name)
 {
-	projectName = "";
+	projectName = _name;
+	const QString _folderPath = GetProjectFolderPath();
+	SetProjectPath(_folderPath.first(_folderPath.lastIndexOf("/")));
+	emit OnNameChanged(_name);
 }
 
-QString UnrealProject::GetProjectPath() const
+QString UnrealProject::GetPathToUprojectFile() const
 {
 	return projectPath;
 }
 
 void UnrealProject::SetProjectPath(const QString& _path)
 {
-	projectPath = _path;
+	projectPath = _path + "/" + projectName+"/" + projectName+ ".uproject";
 	for (std::pair _pair : configFiles)
 	{
 		_pair.second->SetPath(_path + "/Config");
 	}
+	emit OnPathChanged(projectPath);
 }
 
 QHBoxLayout* UnrealProject::GetProjectWidgetLayout() const
@@ -83,12 +89,85 @@ void UnrealProject::UnloadConfigFiles()
 	DeleteConfigFiles();
 }
 
-QString UnrealProject::ToJson() const
+QString UnrealProject::ToJson(bool _addCodeModule) const
 {
+	//TODO clean this up
 	QString _toRet = "{\n";
+	_toRet += "\"FileVersion\" : 3,\n";
 	_toRet += "\"EngineAssociation\" : \"5.2\",\n";
+	_toRet += "\"Category\" : \"\",\n";
+	_toRet += "\"Description\" : \"\",\n";
+	if (_addCodeModule)
+	{
+		_toRet += "\"Modules\": [\n{\n\"Name\": \"" + projectName.split(".")[0] + "\",\n";
+		_toRet += "\"Type\" : \"Runtime\",\n\"LoadingPhase\" : \"Default\",\n\"AdditionalDependencies\" : [\n\"Engine\",\n\"CoreUObject\"\n]\n}\n],\n";
+	}
 	_toRet += "\"Plugins\": [\n{\n\"Name\": \"ModelingToolsEditorMode\",\n\"Enabled\" : true,\n\"TargetAllowList\" : [\n\"Editor\"\n]\n}\n]\n}";
 	return _toRet;
+}
+
+void UnrealProject::CreateProjectFiles(bool _cppModule)
+{
+
+	QString _projectName = projectName.split(".")[0];
+	IOToolBox::CreateFolder(projectPath.first(projectPath.lastIndexOf("/")));
+	IOToolBox::CreateFolder(GetContentFolderPath());
+	//CreateConfigFolder
+	IOToolBox::CreateFolder(GetConfigFolderPath());
+	for (ConfigFile* _file : GetConfigFiles())
+	{
+		IOToolBox::CreateFile(_file->GetPath(), _file->ToIniFile());
+	}
+	IOToolBox::CreateFile(GetPathToUprojectFile(), ToJson(_cppModule));
+
+	if (!_cppModule) return;
+
+	const QString _sourceFolderPath = GetSourceFolderPath();
+	const QString _classFolderPath = _sourceFolderPath + "/" + _projectName;
+	IOToolBox::CreateFolder(_sourceFolderPath);
+	IOToolBox::CreateFolder(_classFolderPath);
+
+	//Create Module Class or something to add this one
+#pragma region Create TargetFiles
+	IOToolBox::CreateFile(_sourceFolderPath + "/" + _projectName + ".Target.cs", TARGET_CONTENT(_projectName));
+	IOToolBox::CreateFile(_sourceFolderPath + "/" + _projectName + "Editor.Target.cs", TARGET_EDITOR_CONTENT(_projectName));
+#pragma endregion
+#pragma region Create Build.CS File
+	IOToolBox::CreateFile(_classFolderPath + "/" + _projectName + ".Build.cs", GetDefaultBuildCS());
+#pragma endregion
+#pragma region Create GameModeBase
+	IOToolBox::CreateFile(_classFolderPath + "/" + _projectName + "GameModeBase.h", GAMEMODEBASE_CONTENT(_projectName));
+	IOToolBox::CreateFile(_classFolderPath + "/" + _projectName + "GameModeBase.cpp", "#include \"" + _projectName + "GameModeBase.h" + "\"");
+#pragma endregion
+#pragma region Create ProjectFiles
+	IOToolBox::CreateFile(_classFolderPath + "/" + _projectName + ".h", "// Copyright Epic Games, Inc. All Rights Reserved.\n#pragma once\n#include \"CoreMinimal.h\"");
+	IOToolBox::CreateFile(_classFolderPath+ "/" + _projectName + ".cpp", "// Copyright Epic Games, Inc. All Rights Reserved.\n#include \"" + _projectName + ".h\"\n#include \"Modules/ModuleManager.h\"\n\n		IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, " + _projectName + ", \"" + _projectName + "\"); ");
+#pragma endregion
+}
+
+QString UnrealProject::GetContentFolderPath() const
+{
+	const int _index = projectPath.lastIndexOf("/");
+	QString _toRet = "";
+	if (_index >= 0)
+		_toRet += projectPath.first(_index);
+	_toRet += "/Content";
+	return _toRet;
+}
+
+QString UnrealProject::GetSourceFolderPath() const
+{
+	const int _index = projectPath.lastIndexOf("/");
+	QString _toRet = "";
+	if (_index >= 0)
+		_toRet += projectPath.first(_index);
+	_toRet += "/Source";
+	return _toRet;
+}
+
+QString UnrealProject::GetProjectFolderPath() const
+{
+	return projectPath.first(projectPath.lastIndexOf("/"));
 }
 
 std::map<QString,ConfigFile*> UnrealProject::CreateConfigFiles()
@@ -107,10 +186,23 @@ std::map<QString, ConfigFile*> UnrealProject::GetExistingConfigFile()
 	std::vector<QString> _filePaths = IOToolBox::GetFilesInFolder(GetConfigFolderPath());
 	for (const QString& _path : _filePaths)
 	{
-		QString _fileName = _path.last(_path.lastIndexOf("/"));
-		_files.insert(std::pair(_fileName, new ConfigFile(IOToolBox::ReadFile(_path), _path)));
+		QStringList _file = _path.split("\\");
+		_files.insert(std::pair(_file[_file.count()-1], new ConfigFile(IOToolBox::ReadFile(_path), _path)));
 	}
 	return _files;
+}
+
+QString UnrealProject::GetDefaultBuildCS() const
+{
+	QString _toRet = "// Copyright Epic Games, Inc. All Rights Reserved.\n";
+	_toRet += "\nusing UnrealBuildTool;\n";
+	_toRet += "\npublic class " + projectName + " : ModuleRules\n";
+	_toRet += "{\n     public " + projectName + "(ReadOnlyTargetRules Target) : base(Target)\n";
+	_toRet += "{\n     PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;\n";
+	_toRet += "     PublicDependencyModuleNames.AddRange(new string[]{"; //here add modules 
+	_toRet += "\"Core\",\"CoreUObject\", \"Engine\", \"InputCore\"});\n"; //to remove and put them dynamically
+	_toRet += "     }\n}";
+	return _toRet;
 }
 
 void UnrealProject::DeleteConfigFiles()
