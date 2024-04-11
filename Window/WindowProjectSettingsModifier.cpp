@@ -1,6 +1,6 @@
 #include "WindowProjectSettingsModifier.h"
 #include <qerrormessage.h>
-#include "ConfigFile.h"
+#include "../FileClasses/ConfigFile.h"
 
 WindowProjectSettingsModifier::WindowProjectSettingsModifier(UnrealProject* _project,QWidget *parent)
 	: WindowProjectSettings(_project,parent)

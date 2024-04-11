@@ -1,7 +1,7 @@
 #include "UnrealProjectWidgets.h"
-#include "UnrealProject.h"
+#include "FileClasses/UnrealProject.h"
 #include <stdlib.h>
-#include "WindowProjectSettingsModifier.h"
+#include "Window/WindowProjectSettingsModifier.h"
 
 UnrealProjectWidgets::UnrealProjectWidgets(UnrealProject* _project)
 {

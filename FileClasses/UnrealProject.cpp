@@ -1,6 +1,6 @@
 #include "UnrealProject.h"
-#include "IOToolBox.h"
-#include "UnrealProjectWidgets.h"
+#include "../IOToolBox.h"
+#include "../UnrealProjectWidgets.h"
 #include "ConfigFile.h"
 
 #define GAMEMODEBASE_CONTENT(projectName) "#include \"CoreMinimal.h\"\n#include \"GameFramework/GameModeBase.h\"\n\n#include \""+projectName+"GameModeBase.generated.h\"\n/*\n*\n*\n*/\nUCLASS()\nclass "+projectName.toUpper()+"_API A"+projectName+"GameModeBase : public AGameModeBase\n{\n    GENERATED_BODY()\n\n};"

@@ -89,20 +89,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConfigFile.cpp" />
-    <ClCompile Include="CreateProjectWindow.cpp" />
     <ClCompile Include="CustomCheckBox.cpp" />
     <ClCompile Include="CustomLineEdit.cpp" />
-    <ClCompile Include="UnrealProject.cpp" />
+    <ClCompile Include="FileClasses\ConfigFile.cpp" />
+    <ClCompile Include="FileClasses\UnrealProject.cpp" />
     <ClCompile Include="UnrealProjectWidgets.cpp" />
-    <ClCompile Include="WindowProjectSettings.cpp" />
-    <ClCompile Include="WindowProjectSettingsModifier.cpp" />
+    <ClCompile Include="Window\CreateProjectWindow.cpp" />
+    <ClCompile Include="Window\UnrealManager.cpp" />
+    <ClCompile Include="Window\WindowProjectSettings.cpp" />
+    <ClCompile Include="Window\WindowProjectSettingsModifier.cpp" />
     <QtRcc Include="UnrealManager.qrc" />
     <QtUic Include="CreateProjectWindow.ui" />
     <QtUic Include="UnrealManager.ui" />
-    <QtMoc Include="UnrealManager.h" />
     <ClCompile Include="IOToolBox.cpp" />
-    <ClCompile Include="UnrealManager.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="UnrealManager.ico" />
     <QtUic Include="WindowProjectSettings.ui" />
@@ -110,14 +109,15 @@
     <ResourceCompile Include="UnrealManager.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConfigFile.h" />
-    <QtMoc Include="WindowProjectSettingsModifier.h" />
+    <QtMoc Include="Window\WindowProjectSettingsModifier.h" />
+    <QtMoc Include="Window\WindowProjectSettings.h" />
+    <QtMoc Include="Window\UnrealManager.h" />
+    <QtMoc Include="Window\CreateProjectWindow.h" />
     <QtMoc Include="CustomCheckBox.h" />
     <QtMoc Include="CustomLineEdit.h" />
-    <QtMoc Include="CreateProjectWindow.h" />
+    <ClInclude Include="FileClasses\ConfigFile.h" />
+    <QtMoc Include="FileClasses\UnrealProject.h" />
     <ClInclude Include="IOToolBox.h" />
-    <QtMoc Include="UnrealProject.h" />
-    <QtMoc Include="WindowProjectSettings.h" />
     <QtMoc Include="UnrealProjectWidgets.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

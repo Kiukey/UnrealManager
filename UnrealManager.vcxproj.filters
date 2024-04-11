@@ -33,11 +33,11 @@
     <Filter Include="Source Files\FileClasses">
       <UniqueIdentifier>{d1ee1f59-9a0b-4170-a13b-8113c0bde377}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Windows">
-      <UniqueIdentifier>{9cbe1628-2b98-4136-8c4c-2249aaf24db1}</UniqueIdentifier>
+    <Filter Include="Header Files\Window">
+      <UniqueIdentifier>{f80e5de8-a4f6-4b0a-9474-db275362c741}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Windows">
-      <UniqueIdentifier>{08b7bdf3-f85d-4e65-86bd-180d33d016cf}</UniqueIdentifier>
+    <Filter Include="Source Files\Window">
+      <UniqueIdentifier>{4fc9b385-022e-4e8b-ae44-5e5f14d18935}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,63 +64,63 @@
     <ClCompile Include="CustomCheckBox.cpp">
       <Filter>Source Files\CustomWidgets</Filter>
     </ClCompile>
-    <ClCompile Include="UnrealProject.cpp">
-      <Filter>Source Files\FileClasses</Filter>
+    <ClCompile Include="CustomLineEdit.cpp">
+      <Filter>Source Files\CustomWidgets</Filter>
     </ClCompile>
-    <ClCompile Include="ConfigFile.cpp">
-      <Filter>Source Files\FileClasses</Filter>
+    <ClCompile Include="Window\CreateProjectWindow.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WindowProjectSettings.cpp">
-      <Filter>Source Files\Windows</Filter>
+    <ClCompile Include="Window\WindowProjectSettingsModifier.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\UnrealManager.cpp">
+      <Filter>Source Files\Window</Filter>
     </ClCompile>
     <ClCompile Include="UnrealProjectWidgets.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\WindowProjectSettings.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="FileClasses\ConfigFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UnrealManager.cpp">
-      <Filter>Source Files\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomLineEdit.cpp">
+    <ClCompile Include="FileClasses\UnrealProject.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CreateProjectWindow.cpp">
-      <Filter>Source Files\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowProjectSettingsModifier.cpp">
-      <Filter>Source Files\Windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IOToolBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConfigFile.h">
-      <Filter>Header Files\FileClasses</Filter>
+    <ClInclude Include="FileClasses\ConfigFile.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="UnrealProjectWidgets.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="CustomCheckBox.h">
       <Filter>Header Files\CustomWidgets</Filter>
     </QtMoc>
-    <QtMoc Include="WindowProjectSettings.h">
-      <Filter>Header Files\Windows</Filter>
-    </QtMoc>
-    <QtMoc Include="UnrealManager.h">
-      <Filter>Header Files\Windows</Filter>
-    </QtMoc>
     <QtMoc Include="CustomLineEdit.h">
+      <Filter>Header Files\CustomWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="Window\CreateProjectWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="CreateProjectWindow.h">
-      <Filter>Header Files\Windows</Filter>
+    <QtMoc Include="Window\UnrealManager.h">
+      <Filter>Header Files\Window</Filter>
     </QtMoc>
-    <QtMoc Include="UnrealProject.h">
-      <Filter>Header Files\FileClasses</Filter>
+    <QtMoc Include="UnrealProjectWidgets.h">
+      <Filter>Header Files\Window</Filter>
     </QtMoc>
-    <QtMoc Include="WindowProjectSettingsModifier.h">
-      <Filter>Header Files\Windows</Filter>
+    <QtMoc Include="Window\WindowProjectSettings.h">
+      <Filter>Header Files\Window</Filter>
+    </QtMoc>
+    <QtMoc Include="Window\WindowProjectSettingsModifier.h">
+      <Filter>Header Files\Window</Filter>
+    </QtMoc>
+    <QtMoc Include="FileClasses\UnrealProject.h">
+      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

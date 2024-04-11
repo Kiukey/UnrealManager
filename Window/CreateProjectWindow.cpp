@@ -1,9 +1,9 @@
 #include "CreateProjectWindow.h"
-#include "UnrealProject.h"
+#include "../FileClasses/UnrealProject.h"
 #include <qfiledialog.h>
 #include "WindowProjectSettings.h"
-#include "IOToolBox.h"
-#include "ConfigFile.h"
+#include "../IOToolBox.h"
+#include "../FileClasses/ConfigFile.h"
 
 CreateProjectWindow::CreateProjectWindow(QWidget *parent)
 	: QDialog(parent)

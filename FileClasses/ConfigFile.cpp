@@ -1,5 +1,5 @@
 #include "ConfigFile.h"
-#include "IOToolBox.h"
+#include "../IOToolBox.h"
 #include "qjsonarray.h"
 
 ConfigFile::ConfigFile(const QString& _filePath)

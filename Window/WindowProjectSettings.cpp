@@ -1,11 +1,11 @@
 #include "WindowProjectSettings.h"
-#include "IOToolBox.h"
-#include "UnrealProject.h"
+#include "../IOToolBox.h"
+#include "../FileClasses/UnrealProject.h"
 #include <qjsondocument.h>
-#include "ConfigFile.h"
+#include "../FileClasses/ConfigFile.h"
 #include <qjsonarray.h>
 #include "qgroupbox.h"
-#include "CustomLineEdit.h"
+#include "../CustomLineEdit.h"
 #include <qerrormessage.h>
 
 WindowProjectSettings::WindowProjectSettings(UnrealProject* _project, QWidget* parent)

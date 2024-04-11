@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1032</width>
-    <height>721</height>
+    <width>825</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,137 +17,117 @@
    <enum>Qt::LeftToRight</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QToolBox" name="toolBox">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>10</y>
-      <width>981</width>
-      <height>651</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="Project_tab">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>981</width>
-       <height>591</height>
-      </rect>
-     </property>
-     <attribute name="label">
-      <string>Projects</string>
-     </attribute>
-     <widget class="QScrollArea" name="ProjectsList">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>40</y>
-        <width>981</width>
-        <height>551</height>
-       </rect>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <widget class="QToolBox" name="toolBox">
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
+      <widget class="QWidget" name="Project_tab">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>979</width>
-         <height>549</height>
+         <width>807</width>
+         <height>529</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0" colspan="2">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QStackedWidget" name="projectsPages">
-            <property name="frameShape">
-             <enum>QFrame::Box</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Plain</enum>
-            </property>
-            <property name="currentIndex">
-             <number>0</number>
-            </property>
-            <widget class="QWidget" name="page">
-             <layout class="QVBoxLayout" name="verticalLayout"/>
-            </widget>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="previousPage">
+       <attribute name="label">
+        <string>Projects</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="LocalizeButton">
           <property name="text">
-           <string>previous</string>
+           <string>Localize Project</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="nextPage">
+        <item row="0" column="1">
+         <widget class="QPushButton" name="CreateButton">
           <property name="text">
-           <string>next</string>
+           <string>Create Project</string>
           </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QScrollArea" name="ProjectsList">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>787</width>
+             <height>479</height>
+            </rect>
+           </property>
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="0" column="0" colspan="2">
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QStackedWidget" name="projectsPages">
+                <property name="frameShape">
+                 <enum>QFrame::Box</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Plain</enum>
+                </property>
+                <property name="currentIndex">
+                 <number>0</number>
+                </property>
+                <widget class="QWidget" name="page">
+                 <layout class="QVBoxLayout" name="verticalLayout"/>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="previousPage">
+              <property name="text">
+               <string>previous</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QPushButton" name="nextPage">
+              <property name="text">
+               <string>next</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="Setting_tab">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>98</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Settings</string>
+       </attribute>
+      </widget>
      </widget>
-     <widget class="QPushButton" name="LocalizeButton">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>0</y>
-        <width>461</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Localize Project</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="CreateButton">
-      <property name="geometry">
-       <rect>
-        <x>520</x>
-        <y>0</y>
-        <width>451</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Create Project</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="Setting_tab">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>981</width>
-       <height>591</height>
-      </rect>
-     </property>
-     <attribute name="label">
-      <string>Settings</string>
-     </attribute>
-    </widget>
-   </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1032</width>
+     <width>825</width>
      <height>22</height>
     </rect>
    </property>
