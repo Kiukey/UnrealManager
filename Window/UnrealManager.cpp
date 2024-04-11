@@ -9,6 +9,7 @@
 #include "../UnrealProjectWidgets.h"
 #include "CreateProjectWindow.h"
 
+
 UnrealManager::UnrealManager(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -26,6 +27,11 @@ UnrealManager::~UnrealManager()
         delete projects[i];
     }
     projects.clear();
+}
+
+float UnrealManager::GetEngineVersion()
+{
+    return engineVersion;
 }
 
 void UnrealManager::AddProject(UnrealProject* _project)
@@ -146,4 +152,13 @@ void UnrealManager::on_previousPage_clicked()
     ui.projectsPages->setCurrentIndex(_previousPage);
     UnloadCurrentProjects();
     AddLoadedProjects(_previousPage*maxProjectPerPage);
+}
+
+void UnrealManager::on_localizeUnrealFolderButton_clicked()
+{
+    QString _newPath = QFileDialog::getExistingDirectory(this, tr("Open Directory"), "/C:", QFileDialog::ShowDirsOnly);
+    if (_newPath.isEmpty()) return;
+    ui.UnrealVersionLineEdit->setText(_newPath);
+    QStringList _list = _newPath.split("/");
+    engineVersion = _list[_list.count() - 1].split("_")[1].toFloat();
 }

@@ -16,9 +16,12 @@ private:
     std::vector<UnrealProject*> projects = std::vector<UnrealProject*>();
     std::vector<UnrealProject*> loadedProjects = std::vector<UnrealProject*>();
     int maxProjectPerPage = 2;
+    static inline float engineVersion = 5.2;
 public:
     UnrealManager(QWidget *parent = nullptr);
     ~UnrealManager();
+
+    static float GetEngineVersion();
 private:
     /*add the project to the ui*/
     void AddProject(UnrealProject* _project);
@@ -46,4 +49,6 @@ private slots:
 
     void on_nextPage_clicked();
     void on_previousPage_clicked();
+
+    void on_localizeUnrealFolderButton_clicked();
 };

@@ -2,6 +2,7 @@
 #include "../IOToolBox.h"
 #include "../UnrealProjectWidgets.h"
 #include "ConfigFile.h"
+#include "../Window/UnrealManager.h"
 
 #define GAMEMODEBASE_CONTENT(projectName) "#include \"CoreMinimal.h\"\n#include \"GameFramework/GameModeBase.h\"\n\n#include \""+projectName+"GameModeBase.generated.h\"\n/*\n*\n*\n*/\nUCLASS()\nclass "+projectName.toUpper()+"_API A"+projectName+"GameModeBase : public AGameModeBase\n{\n    GENERATED_BODY()\n\n};"
 #define TARGET_CONTENT(projectName) "// Copyright Epic Games, Inc. All Rights Reserved.\nusing UnrealBuildTool;\nusing System.Collections.Generic;\n\npublic class " + projectName+"Target : TargetRules\n{\npublic "+projectName+"Target(TargetInfo Target) : base(Target)\n{\n\nType = TargetType.Game;\nDefaultBuildSettings = BuildSettingsVersion.V2;\n\nIncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_1;\nExtraModuleNames.Add(\""+projectName+"\");\n}\n}\n"
@@ -96,7 +97,7 @@ QString UnrealProject::GetUprojectContent(bool _addCodeModule) const
 	//TODO clean this up
 	QString _toRet = "{\n";
 	_toRet += "\"FileVersion\" : 3,\n";
-	_toRet += "\"EngineAssociation\" : \"5.2\",\n";
+	_toRet += "\"EngineAssociation\" : \"" + QString::number(UnrealManager::GetEngineVersion(), 'f',1) + "\",\n";
 	_toRet += "\"Category\" : \"\",\n";
 	_toRet += "\"Description\" : \"\",\n";
 	if (_addCodeModule)
