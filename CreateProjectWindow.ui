@@ -33,7 +33,31 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="4" column="1" colspan="3">
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="pathLineEdit">
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="3">
+       <widget class="QCheckBox" name="startProjectCheckBox">
+        <property name="text">
+         <string>Launch Project At Creation</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3" colspan="2">
+       <widget class="QLineEdit" name="projectNameEdit">
+        <property name="focusPolicy">
+         <enum>Qt::ClickFocus</enum>
+        </property>
+        <property name="maxLength">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
        <widget class="QCheckBox" name="CodeModuleCheckBox">
         <property name="text">
          <string>Add C++ Module</string>
@@ -47,14 +71,24 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QLineEdit" name="pathLineEdit">
-        <property name="readOnly">
+      <item row="5" column="1" colspan="4">
+       <widget class="QPushButton" name="managePluginsButton">
+        <property name="text">
+         <string>Manage Plugins</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1" colspan="4">
+       <widget class="QPushButton" name="settingsButton">
+        <property name="text">
+         <string>Manage Project Settings</string>
+        </property>
+        <property name="autoDefault">
          <bool>false</bool>
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
+      <item row="1" column="4">
        <widget class="QPushButton" name="selectPathButton">
         <property name="focusPolicy">
          <enum>Qt::ClickFocus</enum>
@@ -73,23 +107,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2" colspan="2">
-       <widget class="QLineEdit" name="projectNameEdit">
-        <property name="focusPolicy">
-         <enum>Qt::ClickFocus</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1" colspan="3">
-       <widget class="QPushButton" name="settingsButton">
-        <property name="text">
-         <string>Manage Project Settings</string>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
        <widget class="QLabel" name="label_2">
         <property name="text">
@@ -97,17 +114,10 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1" colspan="2">
-       <widget class="QCheckBox" name="startProjectCheckBox">
+      <item row="4" column="2" colspan="3">
+       <widget class="QPushButton" name="manageModulesButton">
         <property name="text">
-         <string>Launch Project At Creation</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1" colspan="3">
-       <widget class="QPushButton" name="managePluginsButton">
-        <property name="text">
-         <string>Manage Plugins</string>
+         <string>Manage Modules</string>
         </property>
        </widget>
       </item>

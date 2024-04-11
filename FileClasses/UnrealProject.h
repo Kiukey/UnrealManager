@@ -20,8 +20,9 @@ class UnrealProject : public QObject
 
 	std::map<QString,ConfigFile*> configFiles = std::map<QString, ConfigFile*>();
 	//TODO plugins
+	std::vector<QString> pluginList = std::vector<QString>();
 	//TODO modules
-
+	std::vector<QString> moduleList = std::vector<QString>();
 public:
 
 	UnrealProject(const QString& _path,const QString& _projectName);
@@ -38,10 +39,14 @@ public:
 	QString GetContentFolderPath() const;
 	QString GetSourceFolderPath() const;
 	QString GetProjectFolderPath() const;
+	void SetPlugins(const QStringList& _list);
+	std::vector<QString> GetActivatedPluginList() const;
+
+	void SetModules(const QStringList& _list);
+	std::vector<QString> GetActivatedModulesList() const;
 #pragma endregion
 	void LoadConfigFile();
 	void UnloadConfigFiles();
-	QString ToJson(bool _addCodeModule) const;
 
 
 	void CreateProjectFiles(bool _cppModule);
@@ -52,7 +57,11 @@ signals:
 private:
 	std::map<QString, ConfigFile*> CreateConfigFiles();
 	std::map<QString, ConfigFile*> GetExistingConfigFile();
+	QString GetUprojectContent(bool _addCodeModule) const;
+
 	QString GetDefaultBuildCS() const;
+	QString GetPluginsToJson() const;
+	QString GetModulesToJson() const;
 private slots:
 	void SetConfigFiles();
 	void DeleteConfigFiles();

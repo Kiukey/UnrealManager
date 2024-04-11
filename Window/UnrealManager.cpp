@@ -1,12 +1,12 @@
 #include "UnrealManager.h"
-#include "IOToolBox.h"
+#include "../IOToolBox.h"
 #include <QJsonDocument>
 #include <QFileDialog>
-#include "UnrealProject.h"
+#include "../FileClasses/UnrealProject.h"
 #include <qlabel.h>
 #include <qerrormessage.h>
-#include "ConfigFile.h"
-#include "UnrealProjectWidgets.h"
+#include "../FileClasses/ConfigFile.h"
+#include "../UnrealProjectWidgets.h"
 #include "CreateProjectWindow.h"
 
 UnrealManager::UnrealManager(QWidget *parent)
@@ -48,7 +48,7 @@ void UnrealManager::AddProject(UnrealProject* _project)
         QWidget* _newPage = new QWidget();
         QVBoxLayout* _layout = new QVBoxLayout(_newPage);
         _newPage->setLayout(_layout);
-        ((QWidget*)ui.projectsPages->insertWidget(_widgetIndex+1,_newPage));
+        ui.projectsPages->insertWidget(_widgetIndex+1,_newPage);
         if (!_newPage) return;
         _newPage->layout()->addWidget(_widget);
     }
@@ -75,6 +75,7 @@ void UnrealManager::InitializeTemplateFolder()
     IOToolBox::CreateFile("Templates/DefaultEngineTemplate.ini");
     IOToolBox::CreateFile("Templates/DefaultGameTemplate.ini");
     IOToolBox::CreateFile("Templates/DefaultInputTemplate.ini");
+    IOToolBox::CreateFile("Templates/Plugins&ModulesTemplate.ini");
 }
 
 void UnrealManager::AddLoadedProject(UnrealProject* _project)

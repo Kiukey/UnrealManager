@@ -67,26 +67,29 @@
     <ClCompile Include="CustomLineEdit.cpp">
       <Filter>Source Files\CustomWidgets</Filter>
     </ClCompile>
-    <ClCompile Include="Window\CreateProjectWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Window\WindowProjectSettingsModifier.cpp">
       <Filter>Source Files\Window</Filter>
     </ClCompile>
     <ClCompile Include="Window\UnrealManager.cpp">
       <Filter>Source Files\Window</Filter>
     </ClCompile>
-    <ClCompile Include="UnrealProjectWidgets.cpp">
-      <Filter>Source Files\Window</Filter>
-    </ClCompile>
     <ClCompile Include="Window\WindowProjectSettings.cpp">
       <Filter>Source Files\Window</Filter>
     </ClCompile>
     <ClCompile Include="FileClasses\ConfigFile.cpp">
+      <Filter>Source Files\FileClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\CreateProjectWindow.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="UnrealProjectWidgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FileClasses\UnrealProject.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FileClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\ManagerExternalFileWIndow.cpp">
+      <Filter>Source Files\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +97,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FileClasses\ConfigFile.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FileClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -120,7 +123,10 @@
       <Filter>Header Files\Window</Filter>
     </QtMoc>
     <QtMoc Include="FileClasses\UnrealProject.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FileClasses</Filter>
+    </QtMoc>
+    <QtMoc Include="Window\ManagerExternalFileWIndow.h">
+      <Filter>Header Files\Window</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +137,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="WindowProjectSettingsModifier.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ManagerExternalFileWIndow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

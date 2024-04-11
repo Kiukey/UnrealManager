@@ -95,11 +95,13 @@
     <ClCompile Include="FileClasses\UnrealProject.cpp" />
     <ClCompile Include="UnrealProjectWidgets.cpp" />
     <ClCompile Include="Window\CreateProjectWindow.cpp" />
+    <ClCompile Include="Window\ManagerExternalFileWIndow.cpp" />
     <ClCompile Include="Window\UnrealManager.cpp" />
     <ClCompile Include="Window\WindowProjectSettings.cpp" />
     <ClCompile Include="Window\WindowProjectSettingsModifier.cpp" />
     <QtRcc Include="UnrealManager.qrc" />
     <QtUic Include="CreateProjectWindow.ui" />
+    <QtUic Include="ManagerExternalFileWIndow.ui" />
     <QtUic Include="UnrealManager.ui" />
     <ClCompile Include="IOToolBox.cpp" />
     <ClCompile Include="main.cpp" />
@@ -109,6 +111,7 @@
     <ResourceCompile Include="UnrealManager.rc" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="Window\ManagerExternalFileWIndow.h" />
     <QtMoc Include="Window\WindowProjectSettingsModifier.h" />
     <QtMoc Include="Window\WindowProjectSettings.h" />
     <QtMoc Include="Window\UnrealManager.h" />

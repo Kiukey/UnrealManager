@@ -29,4 +29,7 @@ private:
 	void OnChangePathClicked();
 	void ChangeProjectSettings();
 	void CreateButtonClicked();
+	void OnManagePluginsClicked();
+	void OnManageModulesClicked();
+	void OnCppModuleCheckBoxStateChanged();
 };

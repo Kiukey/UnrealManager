@@ -15,6 +15,8 @@ UnrealProject::UnrealProject(const QString& _path, const QString& _projectName)
 	QString _projectPath = _index >= 0 ? _path.first(_index) : _path;
 	projectPath = _path;
 	projectName = _projectName.split(".")[0];
+	
+
 	widgets = new UnrealProjectWidgets(this);
 }
 
@@ -89,7 +91,7 @@ void UnrealProject::UnloadConfigFiles()
 	DeleteConfigFiles();
 }
 
-QString UnrealProject::ToJson(bool _addCodeModule) const
+QString UnrealProject::GetUprojectContent(bool _addCodeModule) const
 {
 	//TODO clean this up
 	QString _toRet = "{\n";
@@ -102,7 +104,9 @@ QString UnrealProject::ToJson(bool _addCodeModule) const
 		_toRet += "\"Modules\": [\n{\n\"Name\": \"" + projectName.split(".")[0] + "\",\n";
 		_toRet += "\"Type\" : \"Runtime\",\n\"LoadingPhase\" : \"Default\",\n\"AdditionalDependencies\" : [\n\"Engine\",\n\"CoreUObject\"\n]\n}\n],\n";
 	}
-	_toRet += "\"Plugins\": [\n{\n\"Name\": \"ModelingToolsEditorMode\",\n\"Enabled\" : true,\n\"TargetAllowList\" : [\n\"Editor\"\n]\n}\n]\n}";
+	_toRet += GetPluginsToJson();
+	_toRet += "\n}";
+	//_toRet += "\"Plugins\": [\n{\n\"Name\": \"ModelingToolsEditorMode\",\n\"Enabled\" : true,\n\"TargetAllowList\" : [\n\"Editor\"\n]\n}\n]\n}";
 	return _toRet;
 }
 
@@ -118,7 +122,7 @@ void UnrealProject::CreateProjectFiles(bool _cppModule)
 	{
 		IOToolBox::CreateFile(_file->GetPath(), _file->ToIniFile());
 	}
-	IOToolBox::CreateFile(GetPathToUprojectFile(), ToJson(_cppModule));
+	IOToolBox::CreateFile(GetPathToUprojectFile(), GetUprojectContent(_cppModule));
 
 	if (!_cppModule) return;
 
@@ -170,6 +174,34 @@ QString UnrealProject::GetProjectFolderPath() const
 	return projectPath.first(projectPath.lastIndexOf("/"));
 }
 
+void UnrealProject::SetPlugins(const QStringList& _list)
+{
+	pluginList.clear();
+	for (const QString& _plugin : _list)
+	{
+		pluginList.push_back(_plugin);
+	}
+}
+
+std::vector<QString> UnrealProject::GetActivatedPluginList() const
+{
+	return pluginList;
+}
+
+void UnrealProject::SetModules(const QStringList& _list)
+{
+	moduleList.clear();
+	for (const QString& _module : _list)
+	{
+		moduleList.push_back(_module);
+	}
+}
+
+std::vector<QString> UnrealProject::GetActivatedModulesList() const
+{
+	return moduleList;
+}
+
 std::map<QString,ConfigFile*> UnrealProject::CreateConfigFiles()
 {
 	std::map<QString, ConfigFile*>_files = std::map<QString, ConfigFile*>();
@@ -198,10 +230,31 @@ QString UnrealProject::GetDefaultBuildCS() const
 	_toRet += "\nusing UnrealBuildTool;\n";
 	_toRet += "\npublic class " + projectName + " : ModuleRules\n";
 	_toRet += "{\n     public " + projectName + "(ReadOnlyTargetRules Target) : base(Target)\n";
-	_toRet += "{\n     PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;\n";
-	_toRet += "     PublicDependencyModuleNames.AddRange(new string[]{"; //here add modules 
-	_toRet += "\"Core\",\"CoreUObject\", \"Engine\", \"InputCore\"});\n"; //to remove and put them dynamically
-	_toRet += "     }\n}";
+	_toRet += "     {\n          PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;\n";
+	_toRet += "          PublicDependencyModuleNames.AddRange(new string[]{"; //here add modules 
+	_toRet +=  GetModulesToJson() + "});\n"; //to remove and put them dynamically
+	_toRet += "          }\n}";
+	return _toRet;
+}
+
+QString UnrealProject::GetPluginsToJson() const
+{
+	QString _toRet = "\"Plugins\" : [\n";
+	for (const QString& _plugin : pluginList)
+	{
+		_toRet += "{\n\"Name\": \"" + _plugin + "\",\n\"Enabled\" : true\n},\n";
+	}
+	_toRet += "]\n";
+	return _toRet;
+}
+
+QString UnrealProject::GetModulesToJson() const
+{
+	QString _toRet = "\"Core\",\"CoreUObject\", \"Engine\", \"InputCore\"";
+	for (const QString& _module : moduleList)
+	{
+		_toRet += ",\"" + _module + "\"";
+	}
 	return _toRet;
 }
 
