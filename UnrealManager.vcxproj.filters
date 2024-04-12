@@ -91,6 +91,9 @@
     <ClCompile Include="Window\ManagerExternalFileWIndow.cpp">
       <Filter>Source Files\Window</Filter>
     </ClCompile>
+    <ClCompile Include="SaveManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IOToolBox.h">
@@ -127,6 +130,9 @@
     </QtMoc>
     <QtMoc Include="Window\ManagerExternalFileWIndow.h">
       <Filter>Header Files\Window</Filter>
+    </QtMoc>
+    <QtMoc Include="SaveManager.h">
+      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

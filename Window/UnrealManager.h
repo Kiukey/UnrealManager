@@ -6,6 +6,7 @@
 
 class IOToolBox;
 class UnrealProject;
+class SaveManager;
 
 class UnrealManager : public QMainWindow
 {
@@ -13,6 +14,8 @@ class UnrealManager : public QMainWindow
 private:
     Ui::UnrealManagerClass ui;
     /*stocking projects to be able to delete them a the end of the program*/
+
+    SaveManager* saveManager = nullptr;
     std::vector<UnrealProject*> projects = std::vector<UnrealProject*>();
     std::vector<UnrealProject*> loadedProjects = std::vector<UnrealProject*>();
     int maxProjectPerPage = 2;
@@ -32,11 +35,13 @@ private:
     /// <summary>
     /// create a template folder with all it's files in it if it doesn't exist
     /// </summary>
-    void InitializeTemplateFolder();
+    void InitializeConfigFolder();
 
     void AddLoadedProject(UnrealProject* _project);
     void AddLoadedProjects(const int _from);
     void UnloadCurrentProjects();
+    void LoadSave();
+    void SetUnrealPath(const QString& _path);
 private slots:
     /// <summary>
     /// open the localize menu
@@ -51,4 +56,10 @@ private slots:
     void on_previousPage_clicked();
 
     void on_localizeUnrealFolderButton_clicked();
+
+signals:
+
+    void OnProjectLocalized(UnrealProject* _project);
+    void OnProjectCreated(UnrealProject* _project);
+    void OnUnrealFolderChanged(const QString& _path);
 };

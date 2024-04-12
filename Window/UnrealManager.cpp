@@ -8,17 +8,22 @@
 #include "../FileClasses/ConfigFile.h"
 #include "../UnrealProjectWidgets.h"
 #include "CreateProjectWindow.h"
+#include "../SaveManager.h"
 
 
 UnrealManager::UnrealManager(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    InitializeTemplateFolder();
+    LoadSave();
+    SetUnrealPath(saveManager->GetUnrealFolderPath());
+    InitializeConfigFolder();
 }
 
 UnrealManager::~UnrealManager()
 {
+    
+    delete saveManager;
     const int _size = projects.size();
 
     if (_size == 0) return;
@@ -39,12 +44,11 @@ void UnrealManager::AddProject(UnrealProject* _project)
     if (!_project) return;
     QWidget* _widget = new QWidget();
     _widget->setLayout(_project->GetProjectWidgetLayout());
-    //ui.ProjectsList->widget()->layout()->addWidget(_widget);
     const int _widgetIndex = ui.projectsPages->count()-1;
     const int _count = ui.projectsPages->widget(_widgetIndex)->layout()->count();
     if (_count < maxProjectPerPage)
     {
-        QWidget* _widgetToAdd = (QWidget*)ui.projectsPages->children().last();
+        QWidget* _widgetToAdd = (QWidget*)ui.projectsPages->widget(ui.projectsPages->count() - 1);
         if (_widgetIndex == ui.projectsPages->currentIndex())
             AddLoadedProject(_project);
         _widgetToAdd->layout()->addWidget(_widget);
@@ -58,7 +62,6 @@ void UnrealManager::AddProject(UnrealProject* _project)
         if (!_newPage) return;
         _newPage->layout()->addWidget(_widget);
     }
-    //TODO Add widget to page widget (stackWidget) corresponding to number of projects max
     projects.push_back(_project);
 }
 
@@ -72,16 +75,16 @@ bool UnrealManager::IsProjectRegisterd(const QString& _path)
     return false;
 }
 
-void UnrealManager::InitializeTemplateFolder()
+void UnrealManager::InitializeConfigFolder()
 {
     //TODO Upgrade this so that it detect if one file is missing and regen it , and Add settings at first 
-    if (IOToolBox::IsFolderExisting("Templates")) return;
-    IOToolBox::CreateFolder("Templates");
-    IOToolBox::CreateFile("Templates/DefaultEditorTemplate.ini");
-    IOToolBox::CreateFile("Templates/DefaultEngineTemplate.ini");
-    IOToolBox::CreateFile("Templates/DefaultGameTemplate.ini");
-    IOToolBox::CreateFile("Templates/DefaultInputTemplate.ini");
-    IOToolBox::CreateFile("Templates/Plugins&ModulesTemplate.ini");
+    if (IOToolBox::IsFolderExisting("Config")) return;
+    IOToolBox::CreateFolder("Config");
+    IOToolBox::CreateFile("Config/DefaultEditorTemplate.ini");
+    IOToolBox::CreateFile("Config/DefaultEngineTemplate.ini");
+    IOToolBox::CreateFile("Config/DefaultGameTemplate.ini");
+    IOToolBox::CreateFile("Config/DefaultInputTemplate.ini");
+    IOToolBox::CreateFile("Config/Plugins&ModulesTemplate.ini");
 }
 
 void UnrealManager::AddLoadedProject(UnrealProject* _project)
@@ -110,6 +113,22 @@ void UnrealManager::UnloadCurrentProjects()
     loadedProjects.clear();
 }
 
+void UnrealManager::LoadSave()
+{
+    saveManager = new SaveManager(this);
+    std::vector<QString> _paths = saveManager->GetProjectsPath();
+    for (QString _path : _paths)
+        AddProject(new UnrealProject(_path, _path.right(_path.count() - (_path.lastIndexOf("/")+1))));
+}
+
+void UnrealManager::SetUnrealPath(const QString& _path)
+{
+    if (_path.isEmpty()) return;
+    ui.UnrealVersionLineEdit->setText(_path);
+    QStringList _list = _path.split("/");
+    engineVersion = _list[_list.count() - 1].split("_")[1].toFloat();
+}
+
 void UnrealManager::on_LocalizeButton_clicked()
 {
     QString _extension = "*.uproject";
@@ -124,13 +143,16 @@ void UnrealManager::on_LocalizeButton_clicked()
     }
     UnrealProject* _project = new UnrealProject(_pathToProject.toLocalFile(),_pathToProject.fileName());
     AddProject(_project);
+    emit OnProjectLocalized(_project);
 }
 
 void UnrealManager::on_CreateButton_clicked()
 {
-    CreateProjectWindow* _window = new CreateProjectWindow();
+    CreateProjectWindow* _window = new CreateProjectWindow(this);
     UnrealProject* _project = _window->CreateProject();
+    if (!_project) return;
     AddProject(_project);
+    emit OnProjectCreated(_project);
 }
 
 void UnrealManager::on_nextPage_clicked()
@@ -158,7 +180,6 @@ void UnrealManager::on_localizeUnrealFolderButton_clicked()
 {
     QString _newPath = QFileDialog::getExistingDirectory(this, tr("Open Directory"), "/C:", QFileDialog::ShowDirsOnly);
     if (_newPath.isEmpty()) return;
-    ui.UnrealVersionLineEdit->setText(_newPath);
-    QStringList _list = _newPath.split("/");
-    engineVersion = _list[_list.count() - 1].split("_")[1].toFloat();
+    emit OnUnrealFolderChanged(_newPath);
+    SetUnrealPath(_newPath);
 }

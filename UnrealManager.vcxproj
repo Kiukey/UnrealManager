@@ -93,6 +93,7 @@
     <ClCompile Include="CustomLineEdit.cpp" />
     <ClCompile Include="FileClasses\ConfigFile.cpp" />
     <ClCompile Include="FileClasses\UnrealProject.cpp" />
+    <ClCompile Include="SaveManager.cpp" />
     <ClCompile Include="UnrealProjectWidgets.cpp" />
     <ClCompile Include="Window\CreateProjectWindow.cpp" />
     <ClCompile Include="Window\ManagerExternalFileWIndow.cpp" />
@@ -111,6 +112,7 @@
     <ResourceCompile Include="UnrealManager.rc" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="SaveManager.h" />
     <QtMoc Include="Window\ManagerExternalFileWIndow.h" />
     <QtMoc Include="Window\WindowProjectSettingsModifier.h" />
     <QtMoc Include="Window\WindowProjectSettings.h" />

@@ -8,7 +8,6 @@
 #define TARGET_CONTENT(projectName) "// Copyright Epic Games, Inc. All Rights Reserved.\nusing UnrealBuildTool;\nusing System.Collections.Generic;\n\npublic class " + projectName+"Target : TargetRules\n{\npublic "+projectName+"Target(TargetInfo Target) : base(Target)\n{\n\nType = TargetType.Game;\nDefaultBuildSettings = BuildSettingsVersion.V2;\n\nIncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_1;\nExtraModuleNames.Add(\""+projectName+"\");\n}\n}\n"
 #define TARGET_EDITOR_CONTENT(projectName) "// Copyright Epic Games, Inc. All Rights Reserved.\nusing UnrealBuildTool;\nusing System.Collections.Generic;\n\npublic class " + projectName+"EditorTarget : TargetRules\n{\npublic "+projectName+"EditorTarget(TargetInfo Target) : base(Target)\n{\n\nType = TargetType.Editor;\nDefaultBuildSettings = BuildSettingsVersion.V2;\n\nIncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_1;\nExtraModuleNames.Add(\""+projectName+"\");\n}\n}\n"
 
-
 UnrealProject::UnrealProject(const QString& _path, const QString& _projectName)
 {
 	//constructor to create a project 
@@ -51,7 +50,7 @@ void UnrealProject::SetProjectPath(const QString& _path)
 	projectPath = _path + "/" + projectName+"/" + projectName+ ".uproject";
 	for (std::pair _pair : configFiles)
 	{
-		_pair.second->SetPath(_path + "/Config");
+		_pair.second->SetPath(_path + "/" + projectName + "/Config");
 	}
 	emit OnPathChanged(projectPath);
 }
@@ -271,7 +270,21 @@ void UnrealProject::DeleteConfigFiles()
 void UnrealProject::SetConfigFiles()
 {
 	//Todo fix keys not good 
-	configFiles = IOToolBox::IsFolderExisting(GetConfigFolderPath()) ? GetExistingConfigFile() : CreateConfigFiles();
+	if (!IOToolBox::IsFolderExisting(GetConfigFolderPath()))
+	{
+		configFiles = CreateConfigFiles();
+		return;
+	}
+	configFiles = GetExistingConfigFile();
+	if (configFiles.size() == 4) return;
+	if(IOToolBox::FileExist(GetConfigFolderPath() + "/DefaultEditor.ini"))
+		configFiles.insert(std::pair("DefaultEditor", new ConfigFile(GetConfigFolderPath() + "/DefaultEditor.ini")));			
+	if (IOToolBox::FileExist(GetConfigFolderPath() + "/DefaultEngine.ini"))
+		configFiles.insert(std::pair("DefaultEngine", new ConfigFile(GetConfigFolderPath() + "/DefaultEngine.ini")));
+	if (IOToolBox::FileExist(GetConfigFolderPath() + "/DefaultGame.ini"))
+		configFiles.insert(std::pair("DefaultGame", new ConfigFile(GetConfigFolderPath() + "/DefaultGame.ini")));
+	if (IOToolBox::FileExist(GetConfigFolderPath() + "/DefaultInput.ini"))
+		configFiles.insert(std::pair("DefaultInput", new ConfigFile(GetConfigFolderPath() + "/DefaultInput.ini")));
 }
 
 std::vector<QString> UnrealProject::GetConfigFilesName() const

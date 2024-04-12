@@ -55,7 +55,7 @@ private:
 	/// <param name="_settingLine">a setting line to display</param>
 	/// <param name="_groupBox">the group box in wich the setting will be in</param>
 	/// <param name="_file">the .ini file of the project selected containing this line</param>
-	void CreateSetting(const QString& _settingLine, class QGroupBox* _groupBox, const ConfigFile* _file, int _i);
+	void CreateSetting(const QString& _settingLine, class QGroupBox* _groupBox, ConfigFile* _file, int _i);
 	/// <summary>
 	/// load a saved file and create a Config File with it
 	/// </summary>
@@ -71,12 +71,12 @@ private:
 	/// <returns>the struct keeping both the scrollbox area and the configFile</returns>
 	DisplayedSettings CreateDisplayedSettings(const QString& _path, QScrollArea* _area);
 	/// <summary>
-	/// return either the default value, or the current value in the file if the parameter exist and there is one
+	/// return either the default value, or the current value in the file if the parameter exist and there is one, add the value in the file if value doesn't exist in it and the defaultValue is != false
 	/// </summary>
 	/// <param name="_settingLine">the setting line splitted in two with the settingString , and the valueString</param>
 	/// <param name="_file">the file to look for the value in</param>
 	/// <returns>either the default value, or the current value in the file</returns>
-	QString GetDefaultValue(const QStringList& _settingLine,const ConfigFile* _file);
+	QString GetDefaultValue(const QString _category,const QStringList& _settingLine,ConfigFile* _file);
 	/// <summary>
 	/// emited when the user stopped writting and the edit line was not foccused anymore
 	/// </summary>

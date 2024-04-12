@@ -32,4 +32,7 @@ private:
 	void OnManagePluginsClicked();
 	void OnManageModulesClicked();
 	void OnCppModuleCheckBoxStateChanged();
+	void OnReject();
+protected:
+	virtual void reject() override;
 };

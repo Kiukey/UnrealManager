@@ -25,7 +25,6 @@ CreateProjectWindow::CreateProjectWindow(QWidget *parent)
 
 CreateProjectWindow::~CreateProjectWindow()
 {
-	delete project;
 	delete ui;
 }
 
@@ -68,7 +67,7 @@ void CreateProjectWindow::ChangeProjectSettings()
 void CreateProjectWindow::CreateButtonClicked()
 {
 	project->CreateProjectFiles(ui->CodeModuleCheckBox->isChecked());
-	close();
+	accept();
 }
 
 void CreateProjectWindow::OnManagePluginsClicked()
@@ -91,4 +90,11 @@ void CreateProjectWindow::OnManageModulesClicked()
 void CreateProjectWindow::OnCppModuleCheckBoxStateChanged()
 {
 	ui->manageModulesButton->setEnabled(ui->CodeModuleCheckBox->isChecked());
+}
+
+void CreateProjectWindow::reject()
+{
+	delete project;
+	project = nullptr;
+	close();
 }

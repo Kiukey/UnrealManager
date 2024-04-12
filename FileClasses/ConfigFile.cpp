@@ -119,7 +119,10 @@ QString ConfigFile::ToString(const QString& _category)const
 
 bool ConfigFile::SaveFileInProject()
 {
-	return IOToolBox::WriteInFile(filePath, ToIniFile(), true);
+	if (IOToolBox::FileExist(filePath))
+		return IOToolBox::WriteInFile(filePath, ToIniFile(), true);
+	else
+		return IOToolBox::CreateFile(filePath, ToIniFile());
 }
 
 QString ConfigFile::GetPath() const

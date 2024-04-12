@@ -12,7 +12,7 @@ ManagerExternalFileWIndow::ManagerExternalFileWIndow(const QString& _params,cons
 	, ui(new Ui::ManagerExternalFileWIndowClass())
 {
 	ui->setupUi(this);
-	QByteArray _array = QByteArray(IOToolBox::ReadFile("Templates/Plugins&ModulesTemplate.ini").toStdString().c_str());
+	QByteArray _array = QByteArray(IOToolBox::ReadFile("Config/Plugins&ModulesTemplate.ini").toStdString().c_str());
 	QJsonObject _object = QJsonDocument::fromJson(_array).object();
 	CreateCheckBoxes(_object.value(_params).toArray(), _activatedPlugins);
 }
