@@ -78,13 +78,18 @@ bool UnrealManager::IsProjectRegisterd(const QString& _path)
 void UnrealManager::InitializeConfigFolder()
 {
     //TODO Upgrade this so that it detect if one file is missing and regen it , and Add settings at first 
-    if (IOToolBox::IsFolderExisting("Config")) return;
-    IOToolBox::CreateFolder("Config");
-    IOToolBox::CreateFile("Config/DefaultEditorTemplate.ini");
-    IOToolBox::CreateFile("Config/DefaultEngineTemplate.ini");
-    IOToolBox::CreateFile("Config/DefaultGameTemplate.ini");
-    IOToolBox::CreateFile("Config/DefaultInputTemplate.ini");
-    IOToolBox::CreateFile("Config/Plugins&ModulesTemplate.ini");
+    if (!IOToolBox::IsFolderExisting("Config")) return;
+        IOToolBox::CreateFolder("Config");
+    if(!IOToolBox::FileExist("Config/DefaultEditorTemplate.ini"))
+        IOToolBox::CreateFile("Config/DefaultEditorTemplate.ini");
+    if (!IOToolBox::FileExist("Config/DefaultEngineTemplate.ini"))
+        IOToolBox::CreateFile("Config/DefaultEngineTemplate.ini");
+    if (!IOToolBox::FileExist("Config/DefaultGameTemplate.ini"))
+        IOToolBox::CreateFile("Config/DefaultGameTemplate.ini");
+    if (!IOToolBox::FileExist("Config/DefaultInputTemplate.ini"))
+        IOToolBox::CreateFile("Config/DefaultInputTemplate.ini");
+    if (!IOToolBox::FileExist("Config/Plugins&ModulesTemplate.ini"))
+        IOToolBox::CreateFile("Config/Plugins&ModulesTemplate.ini");
 }
 
 void UnrealManager::AddLoadedProject(UnrealProject* _project)

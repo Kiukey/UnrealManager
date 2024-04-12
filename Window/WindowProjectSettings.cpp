@@ -109,7 +109,7 @@ QString WindowProjectSettings::GetDefaultValue(const QString _category,const QSt
 		return _value.toString();
 	else
 	{
-		if (_settingLine[1].toLower() != "false")
+		if (!_settingLine[1].toLower().contains("false") && _settingLine[1].toLower() != "0")
 			_file->CreateCategory(_category, _settingLine[0], _settingLine[1]);
 		return _settingLine[1];
 	}
