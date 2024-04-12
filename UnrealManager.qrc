@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="UnrealManager">
+    <qresource prefix="/Root">
+        <file>ButtonStyled.png</file>
     </qresource>
 </RCC>
