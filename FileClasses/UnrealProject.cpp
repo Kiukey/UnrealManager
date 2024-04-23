@@ -55,7 +55,7 @@ void UnrealProject::SetProjectPath(const QString& _path)
 	emit OnPathChanged(projectPath);
 }
 
-QHBoxLayout* UnrealProject::GetProjectWidgetLayout() const
+QFrame* UnrealProject::GetProjectWidgetFrame() const
 {
 	if (!widgets) return nullptr;
 	return widgets->GetWidget();

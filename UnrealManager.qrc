@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/Root">
         <file>ButtonStyled.png</file>
+        <file>check.png</file>
+        <file>empty-checkbox.png</file>
     </qresource>
 </RCC>

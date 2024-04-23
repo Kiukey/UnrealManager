@@ -55,7 +55,7 @@ private:
 	/// <param name="_settingLine">a setting line to display</param>
 	/// <param name="_groupBox">the group box in wich the setting will be in</param>
 	/// <param name="_file">the .ini file of the project selected containing this line</param>
-	void CreateSetting(const QString& _settingLine, class QGroupBox* _groupBox, ConfigFile* _file, int _i);
+	QFrame* CreateSetting(const QString& _settingLine, class QGroupBox* _groupBox, ConfigFile* _file, int _i);
 	/// <summary>
 	/// load a saved file and create a Config File with it
 	/// </summary>
@@ -92,6 +92,8 @@ private:
 	/// <param name="_value">the new value to assing to the setting</param>
 	void ChangeParameter(const QString& _file,const QString& _category,const QString& _setting, const QString& _value);
 
+	void AddFrameToLayout(QGroupBox* _group, QFrame* _frame);
+
 	template<typename T1,typename T2>
 	bool Contains(const std::map<T1, T2>& _map, T1 _key)
 	{
@@ -101,5 +103,7 @@ private:
 		}
 		return false;
 	}
+protected:
 
+	void AddWidgetToLayout(QWidget* _widget);
 };

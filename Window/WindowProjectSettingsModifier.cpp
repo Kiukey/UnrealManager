@@ -6,6 +6,8 @@ WindowProjectSettingsModifier::WindowProjectSettingsModifier(UnrealProject* _pro
 	: WindowProjectSettings(_project,parent)
 {
 	ui.setupUi(this);
+	//parent-
+	AddWidgetToLayout(ui.applyButton);
 }
 
 WindowProjectSettingsModifier::~WindowProjectSettingsModifier()

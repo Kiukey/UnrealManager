@@ -42,8 +42,8 @@ float UnrealManager::GetEngineVersion()
 void UnrealManager::AddProject(UnrealProject* _project)
 {
     if (!_project) return;
-    QWidget* _widget = new QWidget();
-    _widget->setLayout(_project->GetProjectWidgetLayout());
+    QWidget* _widget = _project->GetProjectWidgetFrame();
+  /*  _widget->setLayout();*/
     const int _widgetIndex = ui.projectsPages->count()-1;
     const int _count = ui.projectsPages->widget(_widgetIndex)->layout()->count();
     if (_count < maxProjectPerPage)

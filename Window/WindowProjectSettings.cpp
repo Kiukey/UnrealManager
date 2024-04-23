@@ -63,30 +63,34 @@ void WindowProjectSettings::GenerateTab(ConfigFile* _file, DisplayedSettings& _s
 		int i = 0;
 		for (QJsonValue _value : _settingsList)
 		{
-			CreateSetting(_value.toString(), _groupBox,_file,i);
+			AddFrameToLayout(_groupBox, CreateSetting(_value.toString(), _groupBox, _file, i));
 			i++;
 		}
 	}
 }
 
-void WindowProjectSettings::CreateSetting(const QString& _settingLine, QGroupBox* _groupBox,ConfigFile* _file, int _i)
+QFrame* WindowProjectSettings::CreateSetting(const QString& _settingLine, QGroupBox* _groupBox,ConfigFile* _file, int _i)
 {
 	//here _value = SettingsName=value so i need to parse it heeeeeelp
 	//TODO detect if setting exist in current project and display it's value if it does
-	if (!_groupBox || !_groupBox->layout()) return;
+	if (!_groupBox || !_groupBox->layout()) return nullptr;
+	QFrame* _toRet = new QFrame(_groupBox);
+	//get the values to set in the params
 	QStringList _setting = _settingLine.split("=", Qt::SplitBehavior::enum_type::SkipEmptyParts);
 	QString _settingName = _setting[0];
 	QString _valueString = GetDefaultValue(_groupBox->title(), _setting, _file);
+	//create the params
+	QHBoxLayout* _layout = new QHBoxLayout();
+	_toRet->setLayout(_layout);
 	QLabel* _settingNameLabel = new QLabel(_settingName.trimmed(), _groupBox);
-	_settingNameLabel->setMinimumSize(50, 50);
 	CustomLineEdit* _settingValueEdit = new CustomLineEdit(_valueString.trimmed(), _groupBox);
+	_settingNameLabel->setMinimumSize(50, 50);
 	_settingValueEdit->setObjectName(_settingName.trimmed());
 	_settingValueEdit->setMinimumSize(50, 20);
-	QGridLayout* _layout = (QGridLayout*)_groupBox->layout();
-	if (!_layout) return;
-	_layout->addWidget(_settingNameLabel, _i, 0);
-	_layout->addWidget(_settingValueEdit, _i, 1);
 	connect(_settingValueEdit, &CustomLineEdit::EditFinishedCustomLineEdit, this, &WindowProjectSettings::OnLineEditChanged);
+	_layout->addWidget(_settingNameLabel);
+	_layout->addWidget(_settingValueEdit);
+	return _toRet;
 }
 
 ConfigFile* WindowProjectSettings::LoadSavedFile(const QString& _path,const QByteArray& _array)
@@ -136,5 +140,18 @@ void WindowProjectSettings::ChangeParameter(const QString& _file, const QString&
 	if (!_fileObject) return;
 	if (!_fileObject->ChangeValueInCategory(_category, _setting, _value))
 		_fileObject->CreateCategory(_category, _setting, _value);
+}
+
+void WindowProjectSettings::AddFrameToLayout(QGroupBox* _group, QFrame* _frame)
+{
+	QGridLayout* _layout = (QGridLayout*)_group->layout();
+	if (!_layout) return;
+	_layout->addWidget(_frame);
+}
+
+void WindowProjectSettings::AddWidgetToLayout(QWidget* _widget)
+{
+	if (!layout()) return;
+	layout()->addWidget(_widget);
 }
 

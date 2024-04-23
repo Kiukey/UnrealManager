@@ -1,5 +1,4 @@
 #include "IOToolBox.h"
-#include <filesystem>
 #include <qfile.h>
 
 QString IOToolBox::ReadFile(const QString& _path)

@@ -16,11 +16,12 @@ private:
 	QLabel* projectPath = nullptr;
 	QPushButton* openProjectButton = nullptr;
 	QPushButton* openProjectSettingsButton = nullptr;
+	QFrame* frame = nullptr;
 
 public:
 	UnrealProjectWidgets(UnrealProject* _project);
 	~UnrealProjectWidgets();
-	QHBoxLayout* GetWidget() const;
+	QFrame* GetWidget() const;
 	QPushButton* GetOpenProjectSettingsButton();
 private slots:
 	void OpenProject();

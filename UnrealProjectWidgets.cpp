@@ -8,10 +8,12 @@ UnrealProjectWidgets::UnrealProjectWidgets(UnrealProject* _project)
 	owner = _project;
 
 	layout = new QHBoxLayout();
+	frame = new QFrame();
 	projectName = new QLabel(_project->GetProjectName());
 	projectPath = new QLabel(_project->GetPathToUprojectFile());
 	openProjectButton = new QPushButton("Open project");
 	openProjectSettingsButton = new QPushButton("Open Project settings");
+	frame->setLayout(layout);
 	layout->addWidget(projectName);
 	layout->addWidget(projectPath);
 	layout->addWidget(openProjectButton);
@@ -31,9 +33,9 @@ UnrealProjectWidgets::~UnrealProjectWidgets()
 	delete openProjectSettingsButton;
 }
 
-QHBoxLayout* UnrealProjectWidgets::GetWidget() const
+QFrame* UnrealProjectWidgets::GetWidget() const
 {
-	return layout;
+	return frame;
 }
 
 QPushButton* UnrealProjectWidgets::GetOpenProjectSettingsButton()

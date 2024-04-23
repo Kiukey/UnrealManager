@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>793</width>
+    <width>792</width>
     <height>652</height>
    </rect>
   </property>
@@ -64,18 +64,39 @@ QPushButton:hover:!pressed
  background-color: #999999;
 color:black
 }
-</string>
+
+QToolBox::tab {
+    background: #6E6E6E;
+    border-radius: 5px;
+	border : 1px solid dark;
+    color: black;
+}
+
+QToolBox::tab:selected { /* italicize selected tabs */
+	background: black;
+	border : 1px solid #6E6E6E;
+    font: italic;
+    color: white;
+}
+
+QToolBox::tab:hover:!selected
+{ 
+	background: #999999;
+	border : 1px solid #6E6E6E;
+    font: italic;
+    color: white;
+}</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="Project_tab">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>775</width>
-         <height>489</height>
+         <width>774</width>
+         <height>553</height>
         </rect>
        </property>
        <attribute name="label">
@@ -358,6 +379,13 @@ color:black
           <property name="autoFillBackground">
            <bool>true</bool>
           </property>
+          <property name="styleSheet">
+           <string notr="true">QFrame
+{
+    border: 2px solid gray;
+    border-radius: 10px;
+}</string>
+          </property>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
@@ -366,9 +394,12 @@ color:black
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>755</width>
-             <height>432</height>
+             <width>752</width>
+             <height>494</height>
             </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
            </property>
            <layout class="QGridLayout" name="gridLayout">
             <item row="0" column="0" colspan="2">
@@ -377,6 +408,18 @@ color:black
                <widget class="QStackedWidget" name="projectsPages">
                 <property name="autoFillBackground">
                  <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QFrame
+{
+    border: 0px solid dark;
+    border-radius: 0px;
+}
+.QFrame
+{
+    border: 2px solid gray;
+    border-radius: 10px;
+}</string>
                 </property>
                 <property name="frameShape">
                  <enum>QFrame::Box</enum>
@@ -429,8 +472,8 @@ color:black
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>775</width>
-         <height>489</height>
+         <width>774</width>
+         <height>553</height>
         </rect>
        </property>
        <attribute name="label">
@@ -458,6 +501,15 @@ color:black
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 0 8px;
+    selection-background-color: darkgray;
+	color : white;
+}</string>
+          </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
           </property>
@@ -472,22 +524,6 @@ color:black
            <string>UnrealVersion :</string>
           </property>
          </widget>
-        </item>
-        <item row="0" column="3">
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="1" column="0" colspan="4">
          <widget class="QPushButton" name="pushButton">
@@ -519,53 +555,20 @@ color:black
         </item>
         <item row="0" column="2">
          <widget class="QPushButton" name="localizeUnrealFolderButton">
-          <property name="text">
-           <string>...</string>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="page_2">
-       <attribute name="label">
-        <string>Page</string>
-       </attribute>
-       <widget class="QPushButton" name="pushButton_5">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>140</y>
-          <width>261</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color : blue;
-color: white;
-border-radius:15px</string>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_6">
-        <property name="geometry">
-         <rect>
-          <x>160</x>
-          <y>250</y>
-          <width>111</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton{
-border-radius : 15px;
-border : 1px solid #FFFF00;
-border-top : 1px solid #FFFF00;
-color : white
-}
-
-QPushButton:enabled
+          <property name="minimumSize">
+           <size>
+            <width>40</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton:enabled
 {
  background-color: #6E6E6E;
   border: 2px solid #6E6E6E;
@@ -574,48 +577,20 @@ QPushButton:enabled
 
 QPushButton:hover:!pressed
 {
-	background-color : white;
+ background-color: #999999;
+color:black
 }</string>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_7">
-        <property name="geometry">
-         <rect>
-          <x>430</x>
-          <y>210</y>
-          <width>201</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>793</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="ActionFindProject">

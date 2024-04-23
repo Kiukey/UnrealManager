@@ -13,9 +13,69 @@
   <property name="windowTitle">
    <string>ManagerExternalFileWIndow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QFrame
+{
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+QWidget
+{
+	background-color:#262626
+}
+
+QPushButton
+{
+border-radius : 10px;
+border : 2px solid #585858;
+color : white
+}
+
+QPushButton:enabled
+{
+ background-color: #6E6E6E;
+  border: 2px solid #6E6E6E;
+  border-radius: 10px;
+}
+
+QPushButton:hover:!pressed
+{
+ background-color: #999999;
+color:black
+}
+
+/*CheckBoxes*/
+
+QCheckBox::indicator
+{
+	width:18px;
+	height:18px;
+}
+QCheckBox
+{
+	color:white;
+}
+QCheckBox::indicator:unchecked
+ {
+	border-image: url(:/Root/empty-checkbox.png);
+
+}
+
+QCheckBox::indicator:checked
+ {
+	border-image: url(:/Root/check.png);
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QScrollArea" name="pluginsContainer">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -24,8 +84,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>518</width>
-        <height>346</height>
+        <width>516</width>
+        <height>344</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2"/>

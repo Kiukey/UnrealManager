@@ -32,7 +32,7 @@ public:
 	void SetProjectName(const QString& _name);
 	QString GetPathToUprojectFile() const;
 	void SetProjectPath(const QString& _path);
-	QHBoxLayout* GetProjectWidgetLayout() const;
+	QFrame* GetProjectWidgetFrame() const;
 	std::vector<QString> GetConfigFilesName() const;
 	QString GetConfigFolderPath() const;
 	std::vector<ConfigFile*> GetConfigFiles();

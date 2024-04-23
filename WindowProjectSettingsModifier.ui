@@ -6,26 +6,44 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>632</width>
+    <height>423</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>WindowProjectSettingsModifier</string>
   </property>
-  <widget class="QPushButton" name="applyButton">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>340</y>
-     <width>191</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Apply</string>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QPushButton" name="applyButton">
+     <property name="styleSheet">
+      <string notr="true">
+QPushButton{
+border-radius : 15px;
+border : 1px solid #FFFF00;
+border-top : 1px solid #FFFF00;
+color : white
+}
+
+QPushButton:enabled
+{
+ background-color: #6E6E6E;
+  border: 2px solid #6E6E6E;
+  border-radius: 10px;
+}
+
+QPushButton:hover:!pressed
+{
+ background-color: #999999;
+color:black
+}</string>
+     </property>
+     <property name="text">
+      <string>Apply</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

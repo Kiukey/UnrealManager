@@ -13,6 +13,60 @@
   <property name="windowTitle">
    <string>CreateProjectWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">.QFrame
+{
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+QWidget
+{
+	background-color:#262626
+}
+
+QPushButton
+{
+border-radius : 10px;
+border : 2px solid #585858;
+color : white
+}
+
+QPushButton:enabled
+{
+ background-color: #6E6E6E;
+  border: 2px solid #6E6E6E;
+  border-radius: 10px;
+}
+
+QPushButton:hover:!pressed
+{
+ background-color: #999999;
+color:black
+}
+
+/*CheckBoxes*/
+
+QCheckBox::indicator
+{
+	width:18px;
+	height:18px;
+}
+QCheckBox
+{
+	color:white;
+}
+QCheckBox::indicator:unchecked
+ {
+	border-image: url(:/Root/empty-checkbox.png);
+
+}
+
+QCheckBox::indicator:checked
+ {
+	border-image: url(:/Root/check.png);
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="1">
     <widget class="QPushButton" name="createButton">
@@ -26,6 +80,24 @@
    </item>
    <item row="0" column="1">
     <widget class="QFrame" name="frame">
+     <property name="styleSheet">
+      <string notr="true">QLabel
+ {
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 0 8px;
+    selection-background-color: darkgray;
+	color : white;
+}
+QLineEdit 
+{
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 0 8px;
+    selection-background-color: darkgray;
+	color : white;
+}</string>
+     </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
@@ -42,8 +114,28 @@
       </item>
       <item row="3" column="1" colspan="3">
        <widget class="QCheckBox" name="startProjectCheckBox">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Launch Project At Creation</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -59,8 +151,19 @@
       </item>
       <item row="4" column="1">
        <widget class="QCheckBox" name="CodeModuleCheckBox">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Add C++ Module</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -96,6 +199,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>10</height>
+         </size>
+        </property>
         <property name="focusPolicy">
          <enum>Qt::ClickFocus</enum>
         </property>
@@ -128,6 +237,9 @@
         <property name="text">
          <string>Manage Modules</string>
         </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
        </widget>
       </item>
      </layout>
@@ -136,6 +248,8 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="UnrealManager.qrc"/>
+ </resources>
  <connections/>
 </ui>
