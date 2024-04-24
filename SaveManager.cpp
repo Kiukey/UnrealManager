@@ -82,5 +82,6 @@ void SaveManager::Save()
 		_array.push_back(_path);
 	_save.insert(VAR_NAME(projectsPath), _array);
 	_doc.setObject(_save);
-	IOToolBox::WriteInFile("Config/Save.save", _doc.toJson(), true);
+	QString _toSave = _doc.toJson();
+	IOToolBox::WriteInFile("Config/Save.save", _toSave, true);
 }

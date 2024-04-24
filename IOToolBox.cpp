@@ -98,7 +98,7 @@ bool IOToolBox::CreateFolder(const QString& _folderPath)
 
 bool IOToolBox::OpenFile(const QString& _path, bool _flushFileContent)
 {
-    const errno_t _error = fopen_s(&currentFile, _path.toStdString().c_str(), "r+");
+    const errno_t _error = fopen_s(&currentFile, _path.toStdString().c_str(), _flushFileContent ? "w+" : "r+");
     return _error == 0;
 }
 
