@@ -34,6 +34,10 @@ UnrealProject* CreateProjectWindow::CreateProject()
 	project->LoadConfigFile();
 	setModal(true);
 	exec(); // <- is here while window is open
+
+	if (ui->startProjectCheckBox->isChecked())
+		system(project->GetPathToUprojectFile().toStdString().c_str());
+
 	return project;
 }
 

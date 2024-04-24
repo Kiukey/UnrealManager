@@ -3,7 +3,9 @@
         "D:/Prog/Remesy_Theo/UnrealProjects/Yes/Yes.uproject",
         "D:/Prog/Remesy_Theo/AITraining/AITraining.uproject",
         "D:/Prog/Remesy_Theo/TestProject/TestProject.uproject",
-        "D:/Prog/Remesy_Theo/UnrealProjects/TestSave/TestSave.uproject"
+        "D:/Prog/Remesy_Theo/UnrealProjects/TestSave/TestSave.uproject",
+        "D:/Prog/Remesy_Theo/UnrealProjects/LaunchProjectAtStart/LaunchProjectAtStart.uproject",
+        "D:/Prog/Remesy_Theo/Replication_Test2/Replication_Test2.uproject"
     ],
     "unrealFolderPath": "C:/Program Files/Epic Games/UE_5.2"
 }

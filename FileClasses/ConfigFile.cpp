@@ -148,7 +148,7 @@ int ConfigFile::FindCategory(std::vector<QString> _list, int _currentIndex)
 {
 	for (int i = _currentIndex; i < _list.size(); i++)
 	{
-		if (_list[i].contains("[/"))
+		if (_list[i].contains("["))
 			return i;
 	}
 	return -1;

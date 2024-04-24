@@ -92,11 +92,11 @@ QLabel
 </string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="EditorTab">
       <attribute name="title">
-       <string>Tab 1</string>
+       <string>Default Editor</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="0" column="0">
@@ -126,7 +126,7 @@ QLabel
      </widget>
      <widget class="QWidget" name="EngineTab">
       <attribute name="title">
-       <string>Tab 2</string>
+       <string>Default Engine</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
@@ -153,7 +153,7 @@ QLabel
      </widget>
      <widget class="QWidget" name="GameTab">
       <attribute name="title">
-       <string>Page</string>
+       <string>Default Game</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
@@ -180,7 +180,7 @@ QLabel
      </widget>
      <widget class="QWidget" name="InputTab">
       <attribute name="title">
-       <string>Page</string>
+       <string>Default Input</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">

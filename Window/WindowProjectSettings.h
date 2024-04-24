@@ -62,7 +62,7 @@ private:
 	/// <param name="_path">the path to the file</param>
 	/// <param name="_array">the content of the file</param>
 	/// <returns>A Config file all set with the corresponding settings</returns>
-	ConfigFile* LoadSavedFile(const QString& _path,const QByteArray& _array);
+	ConfigFile* LoadSavedFile(const QString& _path, const QString& _content);
 	/// <summary>
 	/// Create a structure keeping and area scrollbox and a configFile
 	/// </summary>

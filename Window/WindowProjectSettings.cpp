@@ -93,17 +93,16 @@ QFrame* WindowProjectSettings::CreateSetting(const QString& _settingLine, QGroup
 	return _toRet;
 }
 
-ConfigFile* WindowProjectSettings::LoadSavedFile(const QString& _path,const QByteArray& _array)
+ConfigFile* WindowProjectSettings::LoadSavedFile(const QString& _path,const QString& _content)
 {
-	QJsonDocument _doc = QJsonDocument::fromJson(_array);
-	ConfigFile* _config = new ConfigFile(_doc.object(),_path);
+	ConfigFile* _config = new ConfigFile(_content,_path);
 	return _config;
 }
 
 DisplayedSettings WindowProjectSettings::CreateDisplayedSettings(const QString& _path, QScrollArea* _area)
 {
-	QByteArray _array = QByteArray(IOToolBox::ReadFile(_path).toStdString().c_str());
-	return DisplayedSettings(LoadSavedFile(_path,_array), _area);
+	QString _fileContent = IOToolBox::ReadFile(_path);
+	return DisplayedSettings(LoadSavedFile(_path, _fileContent), _area);
 }
 
 QString WindowProjectSettings::GetDefaultValue(const QString _category,const QStringList& _settingLine, ConfigFile* _file)
@@ -121,7 +120,7 @@ QString WindowProjectSettings::GetDefaultValue(const QString _category,const QSt
 
 void WindowProjectSettings::OnLineEditChanged(CustomLineEdit* _self, const QString& _text)
 {
-	//	//get le nom de la checkbox qui va indiquer le nom du parametre, 
+	//get le nom de la checkbox qui va indiquer le nom du parametre, 
 	//get le nom du parent de la checkbox qui correspond au groupbox donc au nom de la category, 
 	//et get le nom de la currentTab pour avoir le file a acceder
 	QGroupBox* _groupBox = (QGroupBox*)_self->parentWidget();

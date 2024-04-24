@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>792</width>
+    <width>794</width>
     <height>652</height>
    </rect>
   </property>
@@ -85,17 +85,24 @@ QToolBox::tab:hover:!selected
 	border : 1px solid #6E6E6E;
     font: italic;
     color: white;
-}</string>
+}
+
+.QFrame
+{
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Project_tab">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>774</width>
+         <width>776</width>
          <height>553</height>
         </rect>
        </property>
@@ -380,11 +387,19 @@ QToolBox::tab:hover:!selected
            <bool>true</bool>
           </property>
           <property name="styleSheet">
-           <string notr="true">QFrame
+           <string notr="true">.QFrame
 {
     border: 2px solid gray;
     border-radius: 10px;
-}</string>
+	border-height: 20px;
+}
+
+QFrame
+{
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+</string>
           </property>
           <property name="widgetResizable">
            <bool>true</bool>
@@ -394,7 +409,7 @@ QToolBox::tab:hover:!selected
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>752</width>
+             <width>754</width>
              <height>494</height>
             </rect>
            </property>
@@ -402,7 +417,7 @@ QToolBox::tab:hover:!selected
             <string notr="true"/>
            </property>
            <layout class="QGridLayout" name="gridLayout">
-            <item row="0" column="0" colspan="2">
+            <item row="0" column="0" colspan="3">
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
                <widget class="QStackedWidget" name="projectsPages">
@@ -415,6 +430,7 @@ QToolBox::tab:hover:!selected
     border: 0px solid dark;
     border-radius: 0px;
 }
+
 .QFrame
 {
     border: 2px solid gray;
@@ -449,7 +465,7 @@ QToolBox::tab:hover:!selected
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="1" column="2">
              <widget class="QPushButton" name="nextPage">
               <property name="font">
                <font>
@@ -458,6 +474,30 @@ QToolBox::tab:hover:!selected
               </property>
               <property name="text">
                <string>Next</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="PagesLabel">
+              <property name="maximumSize">
+               <size>
+                <width>75</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QFrame
+{
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>1/1</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -472,7 +512,7 @@ QToolBox::tab:hover:!selected
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>774</width>
+         <width>776</width>
          <height>553</height>
         </rect>
        </property>
@@ -501,6 +541,12 @@ QToolBox::tab:hover:!selected
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="toolTip">
+           <string>select folder named UE_Unreal_Version, UE_5.0 for exemple </string>
+          </property>
+          <property name="toolTipDuration">
+           <number>-1</number>
+          </property>
           <property name="styleSheet">
            <string notr="true">QLineEdit {
     border: 2px solid gray;
@@ -514,7 +560,7 @@ QToolBox::tab:hover:!selected
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
           </property>
           <property name="readOnly">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>

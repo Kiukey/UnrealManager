@@ -43,6 +43,7 @@ void UnrealManager::AddProject(UnrealProject* _project)
 {
     if (!_project) return;
     QWidget* _widget = _project->GetProjectWidgetFrame();
+    _widget->setMaximumHeight(100);
   /*  _widget->setLayout();*/
     const int _widgetIndex = ui.projectsPages->count()-1;
     const int _count = ui.projectsPages->widget(_widgetIndex)->layout()->count();
@@ -55,12 +56,9 @@ void UnrealManager::AddProject(UnrealProject* _project)
     }
     else
     {
-        QWidget* _newPage = new QWidget();
-        QVBoxLayout* _layout = new QVBoxLayout(_newPage);
-        _newPage->setLayout(_layout);
-        ui.projectsPages->insertWidget(_widgetIndex+1,_newPage);
-        if (!_newPage) return;
+        QWidget* _newPage = CreateNewPage();
         _newPage->layout()->addWidget(_widget);
+        ui.PagesLabel->setText(QString::number(ui.projectsPages->currentIndex()+1) + "/" + QString::number(ui.projectsPages->count()));
     }
     projects.push_back(_project);
 }
@@ -134,6 +132,16 @@ void UnrealManager::SetUnrealPath(const QString& _path)
     engineVersion = _list[_list.count() - 1].split("_")[1].toFloat();
 }
 
+QWidget* UnrealManager::CreateNewPage()
+{
+    QWidget* _newPage = new QWidget();
+    QVBoxLayout* _layout = new QVBoxLayout(_newPage);
+    _newPage->setLayout(_layout);
+    ui.projectsPages->insertWidget(ui.projectsPages->count(), _newPage);
+    /*_newPage->setStyleSheet("QFrame{border: 0px solid dark;border - radius: 0px;}\n.QFrame{border: 2px solid gray;border - radius: 10px;}");*/
+    return _newPage;
+}
+
 void UnrealManager::on_LocalizeButton_clicked()
 {
     QString _extension = "*.uproject";
@@ -169,16 +177,19 @@ void UnrealManager::on_nextPage_clicked()
     ui.projectsPages->setCurrentIndex(_nextPage);
     UnloadCurrentProjects();
     AddLoadedProjects(_nextPage * maxProjectPerPage);
+    ui.PagesLabel->setText(QString::number(_nextPage + 1) + "/" + QString::number(_numberOfPage));
 }
 
 void UnrealManager::on_previousPage_clicked()
 {
     const int _current = ui.projectsPages->currentIndex();
     const int _previousPage = _current - 1;
+    const int _numberOfPage = ui.projectsPages->count();
     if (_previousPage < 0) return;
     ui.projectsPages->setCurrentIndex(_previousPage);
     UnloadCurrentProjects();
     AddLoadedProjects(_previousPage*maxProjectPerPage);
+    ui.PagesLabel->setText(QString::number(_previousPage + 1) + "/" + QString::number(_numberOfPage));
 }
 
 void UnrealManager::on_localizeUnrealFolderButton_clicked()

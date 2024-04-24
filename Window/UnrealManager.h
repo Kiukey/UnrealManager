@@ -18,7 +18,7 @@ private:
     SaveManager* saveManager = nullptr;
     std::vector<UnrealProject*> projects = std::vector<UnrealProject*>();
     std::vector<UnrealProject*> loadedProjects = std::vector<UnrealProject*>();
-    int maxProjectPerPage = 2;
+    int maxProjectPerPage = 5;
     static inline float engineVersion = 5.2;
 public:
     UnrealManager(QWidget *parent = nullptr);
@@ -42,6 +42,7 @@ private:
     void UnloadCurrentProjects();
     void LoadSave();
     void SetUnrealPath(const QString& _path);
+    QWidget* CreateNewPage();
 private slots:
     /// <summary>
     /// open the localize menu
@@ -56,7 +57,6 @@ private slots:
     void on_previousPage_clicked();
 
     void on_localizeUnrealFolderButton_clicked();
-
 signals:
 
     void OnProjectLocalized(UnrealProject* _project);
