@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddTemplateSettingWindowClass</class>
+ <widget class="QDialog" name="AddTemplateSettingWindowClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>AddTemplateSettingWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background-color:#262626
+}
+
+QPushButton{
+border-radius : 15px;
+border : 1px solid #FFFF00;
+border-top : 1px solid #FFFF00;
+color : white
+}
+
+QLabel
+{
+	color:white;
+}
+
+QPushButton:enabled
+{
+ background-color: #6E6E6E;
+  border: 2px solid #6E6E6E;
+  border-radius: 10px;
+}
+
+QPushButton:hover:!pressed
+{
+ background-color: #999999;
+color:black
+}
+
+.QFrame
+{
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+QLineEdit {
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 0 8px;
+    selection-background-color: darkgray;
+	color : white;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="1" colspan="2">
+    <widget class="QLineEdit" name="SettingNameLineEdit"/>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="fileLabel">
+     <property name="text">
+      <string>File label</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" colspan="2">
+    <widget class="QLineEdit" name="DefaultValueLineEdit"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="SettingNameLabel">
+     <property name="text">
+      <string>Setting name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QComboBox" name="FileComboBox">
+     <property name="styleSheet">
+      <string notr="true">QComboBox {
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 1px 18px 1px 3px;
+    min-width: 6em;
+	color: white;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 15px;
+
+    border-left-width: 1px;
+    border-left-color: darkgray;
+    border-left-style: solid; /* just a single line */
+    border-top-right-radius: 3px; /* same radius as the QComboBox */
+    border-bottom-right-radius: 3px;
+}
+QComboBox:on { /* shift the text when the popup opens */
+    padding-top: 3px;
+    padding-left: 4px;
+	color: white;
+}
+
+QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+	color : white;
+}
+QComboBox QAbstractItemView {
+    border: 2px solid darkgray;
+	border-radius: 10px;
+    selection-background-color: lightgray;
+	color : white;
+}</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="DefaultValueLabel">
+     <property name="text">
+      <string>Default value</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QLineEdit" name="CategoryNameLineEdit"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="SettingCategoryLabel">
+     <property name="text">
+      <string>Setting Category</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QPushButton" name="ConfirmButton">
+     <property name="text">
+      <string>Confirm</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QPushButton" name="CancelButton">
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

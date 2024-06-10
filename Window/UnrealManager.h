@@ -43,6 +43,8 @@ private:
     void LoadSave();
     void SetUnrealPath(const QString& _path);
     QWidget* CreateNewPage();
+
+    void AddExternalFile(const QString& _type, const QString& _toAdd);
 private slots:
     /// <summary>
     /// open the localize menu
@@ -57,6 +59,11 @@ private slots:
     void on_previousPage_clicked();
 
     void on_localizeUnrealFolderButton_clicked();
+    void on_AddTemplateSettingButton_clicked();
+
+    void on_AddPluginButton_clicked();
+    void on_AddModuleButton_clicked();
+
 signals:
 
     void OnProjectLocalized(UnrealProject* _project);

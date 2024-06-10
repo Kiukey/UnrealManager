@@ -31,6 +31,8 @@ UnrealProjectWidgets::~UnrealProjectWidgets()
 	delete projectPath;
 	delete openProjectButton;
 	delete openProjectSettingsButton;
+	delete layout;
+	delete frame;
 }
 
 QFrame* UnrealProjectWidgets::GetWidget() const

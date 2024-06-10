@@ -34,7 +34,11 @@ WindowProjectSettings::~WindowProjectSettings()
 
 void WindowProjectSettings::GenerateAllTabs()
 {
-	if (!project) return;
+	if (!project)
+	{
+		std::cout << "Project not found, Impossible to genetate tabs" << std::endl;
+		return;
+	}
 	std::vector<ConfigFile*> _files = project->GetConfigFiles();
 	const int _num = _files.size();
 	for (int i = 0; i < _num; i++)
@@ -57,7 +61,7 @@ void WindowProjectSettings::GenerateTab(ConfigFile* _file, DisplayedSettings& _s
 	{
 		QJsonArray _settingsList = QJsonArray();
 		if (!_settings.file->GetAllValuesFromCategory(_category, _settingsList)||_settingsList.isEmpty()) continue;
-		QGroupBox* _groupBox = new QGroupBox(_category,_settings.area);
+		QGroupBox* _groupBox = new QGroupBox(QString(_category),_settings.area);
 		_groupBox->setLayout(new QGridLayout(_groupBox));
 		_settings.area->widget()->layout()->addWidget(_groupBox);
 		int i = 0;
@@ -85,7 +89,7 @@ QFrame* WindowProjectSettings::CreateSetting(const QString& _settingLine, QGroup
 	QLabel* _settingNameLabel = new QLabel(_settingName.trimmed(), _groupBox);
 	CustomLineEdit* _settingValueEdit = new CustomLineEdit(_valueString.trimmed(), _groupBox);
 	_settingNameLabel->setMinimumSize(50, 50);
-	_settingValueEdit->setObjectName(_settingName.trimmed());
+	_settingValueEdit->setObjectName(_groupBox->title() + "|" + _settingName.trimmed());
 	_settingValueEdit->setMinimumSize(50, 20);
 	connect(_settingValueEdit, &CustomLineEdit::EditFinishedCustomLineEdit, this, &WindowProjectSettings::OnLineEditChanged);
 	_layout->addWidget(_settingNameLabel);
@@ -123,10 +127,12 @@ void WindowProjectSettings::OnLineEditChanged(CustomLineEdit* _self, const QStri
 	//get le nom de la checkbox qui va indiquer le nom du parametre, 
 	//get le nom du parent de la checkbox qui correspond au groupbox donc au nom de la category, 
 	//et get le nom de la currentTab pour avoir le file a acceder
-	QGroupBox* _groupBox = (QGroupBox*)_self->parentWidget();
-	if (!_groupBox) return;
-	const QString& _settingName = _self->objectName();
-	const QString& _categoryName = _groupBox->title();
+	//QGroupBox* _groupBox = (QGroupBox*)_self->parentWidget();
+	//if (!_groupBox) return;
+	if (!this) return;
+	QStringList _nameSplitted = _self->objectName().split("|");
+	const QString & _settingName = _nameSplitted[1];
+	const QString& _categoryName = _nameSplitted[0];
 	const QString& _currentFile = ui.tabWidget->currentWidget()->objectName();
 	ChangeParameter(_currentFile, _categoryName, _settingName, _text);
 }
@@ -153,4 +159,3 @@ void WindowProjectSettings::AddWidgetToLayout(QWidget* _widget)
 	if (!layout()) return;
 	layout()->addWidget(_widget);
 }
-

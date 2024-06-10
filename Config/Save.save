@@ -2,7 +2,8 @@
     "projectsPath": [
         "D:/Prog/Remesy_Theo/UnrealProjects/Yes/Yes.uproject",
         "D:/Prog/Remesy_Theo/AITraining/AITraining.uproject",
-        "D:/Prog/Remesy_Theo/Replication_Test2/Replication_Test2.uproject"
+        "D:/Prog/Remesy_Theo/Replication_Test2/Replication_Test2.uproject",
+        "D:/Prog/Remesy_Theo/UnrealProjects/DefaultProjectName/DefaultProjectName.uproject"
     ],
     "unrealFolderPath": "C:/Program Files/Epic Games/UE_5.2"
 }

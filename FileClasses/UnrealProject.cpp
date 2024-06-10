@@ -15,8 +15,6 @@ UnrealProject::UnrealProject(const QString& _path, const QString& _projectName)
 	QString _projectPath = _index >= 0 ? _path.first(_index) : _path;
 	projectPath = _path;
 	projectName = _projectName.split(".")[0];
-	
-
 	widgets = new UnrealProjectWidgets(this);
 }
 
@@ -131,7 +129,6 @@ void UnrealProject::CreateProjectFiles(bool _cppModule)
 	IOToolBox::CreateFolder(_sourceFolderPath);
 	IOToolBox::CreateFolder(_classFolderPath);
 
-	//Create Module Class or something to add this one
 #pragma region Create TargetFiles
 	IOToolBox::CreateFile(_sourceFolderPath + "/" + _projectName + ".Target.cs", TARGET_CONTENT(_projectName));
 	IOToolBox::CreateFile(_sourceFolderPath + "/" + _projectName + "Editor.Target.cs", TARGET_EDITOR_CONTENT(_projectName));

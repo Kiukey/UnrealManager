@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>783</width>
-    <height>508</height>
+    <width>1025</width>
+    <height>667</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,26 @@
 {
 	background-color:#262626
 }
-</string>
+
+QPushButton
+{
+border-radius : 10px;
+border : 2px solid #585858;
+color : white
+}
+
+QPushButton:enabled
+{
+ background-color: #6E6E6E;
+  border: 2px solid #6E6E6E;
+  border-radius: 10px;
+}
+
+QPushButton:hover:!pressed
+{
+ background-color: #999999;
+color:black
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -92,7 +111,7 @@ QLabel
 </string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="EditorTab">
       <attribute name="title">
@@ -115,8 +134,8 @@ QLabel
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>743</width>
-            <height>445</height>
+            <width>985</width>
+            <height>604</height>
            </rect>
           </property>
          </widget>
@@ -142,8 +161,8 @@ QLabel
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>743</width>
-            <height>445</height>
+            <width>985</width>
+            <height>604</height>
            </rect>
           </property>
          </widget>
@@ -169,8 +188,8 @@ QLabel
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>743</width>
-            <height>445</height>
+            <width>985</width>
+            <height>604</height>
            </rect>
           </property>
          </widget>
@@ -196,8 +215,8 @@ QLabel
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>743</width>
-            <height>445</height>
+            <width>985</width>
+            <height>604</height>
            </rect>
           </property>
          </widget>

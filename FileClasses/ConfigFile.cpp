@@ -29,6 +29,11 @@ ConfigFile::ConfigFile(const QJsonObject& _toGet, const QString& _filePath)
 	}
 }
 
+bool ConfigFile::IsCategoryExisting(const QString& _category) const
+{
+	return contains(_category);
+}
+
 bool ConfigFile::FindSetting(const QString& _settingName, QJsonValue& _retValue) const
 {
 	QStringList _keys = keys();
@@ -133,6 +138,15 @@ QString ConfigFile::GetPath() const
 void ConfigFile::SetPath(const QString& _path)
 {
 	filePath = _path + "/" +fileName;
+}
+
+bool ConfigFile::AddSettingToCategory(const QString& _category, const QString& _setting, const QString& _value)
+{
+	if (!IsCategoryExisting(_category)) return false;
+	QJsonArray _currentArray = take(_category).toArray(); //
+	QString _toAdd = _setting + "=" + _value;
+	_currentArray.push_back(_toAdd);
+	insert(_category, _currentArray);
 }
 
 QString ConfigFile::ToIniFile() const

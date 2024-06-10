@@ -19,7 +19,6 @@ QString IOToolBox::ReadFile(const QString& _path)
 bool IOToolBox::WriteInFile(const QString& _path, const QString& _toWrite, bool _flushFileContent)
 {
     if (!OpenFile(_path, _flushFileContent)) return false;
-    std::vector<QString> _lines = GetAllLines(_toWrite);
     int _error = fseek(currentFile, _flushFileContent ? 0 : SEEK_END, 0);
     if (_error != 0) return false;
     _error = fwrite(_toWrite.toStdString().c_str(), 1, _toWrite.length(), currentFile);

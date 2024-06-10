@@ -11,6 +11,7 @@ public:
 	ConfigFile(const QString& _toParse,const QString& _filePath);
 	ConfigFile(const QJsonObject& _toGet, const QString& _filePath);
 
+	bool IsCategoryExisting(const QString& _category) const;
 	/// <summary>
 	/// Check in itself to find the setting enterred and return true if found it, return value as QJsonValue as refParam
 	/// </summary>
@@ -41,6 +42,7 @@ public:
 	bool SaveFileInProject();
 	QString GetPath() const;
 	void SetPath(const QString& _path);
+	bool AddSettingToCategory(const QString& _category, const QString& _setting, const QString& _value);
 private:
 	int FindCategory(std::vector<QString> _list, int _currentIndex);
 	void ParseFile(const QString& _toParse);

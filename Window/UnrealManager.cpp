@@ -7,8 +7,10 @@
 #include <qerrormessage.h>
 #include "../FileClasses/ConfigFile.h"
 #include "../UnrealProjectWidgets.h"
-#include "CreateProjectWindow.h"
+#include "ProjectCreationWindow.h"
 #include "../SaveManager.h"
+#include "AddTemplateSettingWindow.h"
+#include <qjsonarray.h>
 
 
 UnrealManager::UnrealManager(QWidget *parent)
@@ -126,10 +128,11 @@ void UnrealManager::LoadSave()
 
 void UnrealManager::SetUnrealPath(const QString& _path)
 {
-    if (_path.isEmpty()) return;
+    if (_path.isEmpty() || !_path.contains("UE_")) return;
     ui.UnrealVersionLineEdit->setText(_path);
     QStringList _list = _path.split("/");
-    engineVersion = _list[_list.count() - 1].split("_")[1].toFloat();
+    int _version = _list.isEmpty() ? _path.split("_")[1].toFloat() : _list[_list.count() - 1].split("_")[1].toFloat();
+    engineVersion = _version;
 }
 
 QWidget* UnrealManager::CreateNewPage()
@@ -140,6 +143,18 @@ QWidget* UnrealManager::CreateNewPage()
     ui.projectsPages->insertWidget(ui.projectsPages->count(), _newPage);
     /*_newPage->setStyleSheet("QFrame{border: 0px solid dark;border - radius: 0px;}\n.QFrame{border: 2px solid gray;border - radius: 10px;}");*/
     return _newPage;
+}
+
+void UnrealManager::AddExternalFile(const QString& _type, const QString& _toAdd)
+{
+    QByteArray _array = QByteArray(IOToolBox::ReadFile("Config/Plugins&ModulesTemplate.ini").toStdString().c_str());
+    QJsonDocument _doc = QJsonDocument::fromJson(_array);
+    QJsonObject _object = _doc.object();
+    QJsonArray _currentArray = _object.take(_type).toArray();
+    _currentArray.push_back(_toAdd);
+    _object.insert(_type, _currentArray);
+    _doc.setObject(_object);
+    IOToolBox::WriteInFile("Config/Plugins&ModulesTemplate.ini", _doc.toJson(), true);
 }
 
 void UnrealManager::on_LocalizeButton_clicked()
@@ -161,11 +176,16 @@ void UnrealManager::on_LocalizeButton_clicked()
 
 void UnrealManager::on_CreateButton_clicked()
 {
-    CreateProjectWindow* _window = new CreateProjectWindow(this);
+    ProjectCreationWindow* _window = new ProjectCreationWindow(this);
     UnrealProject* _project = _window->CreateProject();
-    if (!_project) return;
+    if (!_project)
+    {
+        delete _window;
+        return;
+    }
     AddProject(_project);
     emit OnProjectCreated(_project);
+    delete _window;
 }
 
 void UnrealManager::on_nextPage_clicked()
@@ -192,10 +212,34 @@ void UnrealManager::on_previousPage_clicked()
     ui.PagesLabel->setText(QString::number(_previousPage + 1) + "/" + QString::number(_numberOfPage));
 }
 
+void UnrealManager::on_AddPluginButton_clicked()
+{
+    //QByteArray _array = QByteArray(IOToolBox::ReadFile("Config/Plugins&ModulesTemplate.ini").toStdString().c_str());
+    //QJsonObject _object = QJsonDocument::fromJson(_array).object();
+    AddExternalFile("Plugins", ui.AddPluginLineEdit->text());
+    ui.AddPluginLineEdit->setText("");
+}
+
+void UnrealManager::on_AddModuleButton_clicked()
+{
+    AddExternalFile("Modules", ui.AddModuleLineEdit->text());
+    ui.AddModuleLineEdit->setText("");
+
+}
+
 void UnrealManager::on_localizeUnrealFolderButton_clicked()
 {
     QString _newPath = QFileDialog::getExistingDirectory(this, tr("Open Directory"), "/C:", QFileDialog::ShowDirsOnly);
     if (_newPath.isEmpty()) return;
     emit OnUnrealFolderChanged(_newPath);
     SetUnrealPath(_newPath);
+}
+
+void UnrealManager::on_AddTemplateSettingButton_clicked()
+{
+    AddTemplateSettingWindow* _window = new AddTemplateSettingWindow(this);
+    if (!_window) return;
+    _window->setModal(true);
+    _window->exec();
+    delete _window;
 }

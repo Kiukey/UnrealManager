@@ -6,14 +6,11 @@ WindowProjectSettingsModifier::WindowProjectSettingsModifier(UnrealProject* _pro
 	: WindowProjectSettings(_project,parent)
 {
 	ui.setupUi(this);
-	//parent-
 	AddWidgetToLayout(ui.applyButton);
 }
-
 WindowProjectSettingsModifier::~WindowProjectSettingsModifier()
 {
 }
-
 void WindowProjectSettingsModifier::on_applyButton_clicked()
 {
 	for (std::pair<QString, ConfigFile*> _pair : files)
